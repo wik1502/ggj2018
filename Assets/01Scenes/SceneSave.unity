@@ -263,7 +263,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1485630237}
+      - m_Target: {fileID: 1485630238}
         m_MethodName: PushSaveButton
         m_Mode: 3
         m_Arguments:
@@ -581,7 +581,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1485630237}
+      - m_Target: {fileID: 1485630238}
         m_MethodName: PushSaveButton
         m_Mode: 3
         m_Arguments:
@@ -932,7 +932,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1485630237}
+      - m_Target: {fileID: 1485630238}
         m_MethodName: PushSaveButton
         m_Mode: 3
         m_Arguments:
@@ -1054,7 +1054,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1485630237}
+      - m_Target: {fileID: 1485630238}
         m_MethodName: PushSaveButton
         m_Mode: 3
         m_Arguments:
@@ -1345,6 +1345,7 @@ GameObject:
   - component: {fileID: 1485630235}
   - component: {fileID: 1485630234}
   - component: {fileID: 1485630237}
+  - component: {fileID: 1485630238}
   m_Layer: 0
   m_Name: SaveManager
   m_TagString: Untagged
@@ -1406,6 +1407,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c77fc022cd3daf24dafa2c5e8d0dcf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+--- !u!114 &1485630238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1485630233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d9931d988cbcb049a26b7d211316035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
@@ -1633,7 +1646,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1485630237}
+      - m_Target: {fileID: 1485630238}
         m_MethodName: PushBackButton
         m_Mode: 1
         m_Arguments:

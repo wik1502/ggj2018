@@ -57,7 +57,7 @@ public class SaveManagerScript : MonoBehaviour {
 	public void PushSaveButton(int saveNo){								//押されたセーブボタンのスクリプト＆ボタンの番号読み込み
 		Debug.Log (saveNo);												//選択したロードボタンをログで表示
 		for(int i = 1; i < (int)MAIN_PARA_ID.MAXID; i++){
-			PlayerPrefs.SetInt ("data" + saveNo + "MainPara" + mainParamName[i], mainPara[i - 1]);		//メインパラメータを保管
+			PlayerPrefs.SetInt ("data" + saveNo + "MainPara" + mainParamName[i], mainPara[i]);		//メインパラメータを保管
 			Debug.Log(PlayerPrefs.GetInt ("data" + saveNo + "MainPara" + mainParamName[i]));
 		}
 		for(int k = 0; k < (int)SAB_PARA_ID.MAXID; k++){
