@@ -10,15 +10,17 @@ public class NpcInputTouch : MonoBehaviour {
     Vector3 starPositionAfter;  //1フレーム後の座標
     Vector3 moveVector;         //フリック時に動くベクトル
     public static Vector3 moveVectorStatic; //moveVectorの外部参照用
+    GameMainSystem gameSystem;
 
     void Start () {
+        gameSystem = GameObject.Find("GameSystem").GetComponent<GameMainSystem>();
         deadTrigger = false;                //NPCは死んでるか初期化
         player = GameObject.Find("Player"); //プレイヤーオブジェクトの取得
     }
 	
 	void Update () {
         //フリック時、算出ベクトルで移動
-        this.gameObject.transform.Translate(moveVector * GameMainSystem.slowFlickMoveStatic * Time.deltaTime);
+        this.gameObject.transform.Translate(moveVector * gameSystem.slowFlickMove * Time.deltaTime);
 
         //離れたNPCを消す
         DeleteNpc();

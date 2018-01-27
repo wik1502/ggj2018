@@ -9,24 +9,26 @@ public class NpcParameter : MonoBehaviour {
     
     public int[] mainParameter;   //NPCのメインパラメータ
     public int[] subParameter;    //NPCのサブパラメータ
+    GameMainSystem gameSystem;
     
     void Start () {
-        mainParameter = new int[GameMainSystem.mainParameterNumStatic];   //NPCのメインパラメータの配列確保
-        subParameter = new int[GameMainSystem.subParameterNumStatic];     //NPCのメインパラメータの配列確保
+        gameSystem = GameObject.Find("GameSystem").GetComponent<GameMainSystem>();
+        mainParameter = new int[gameSystem.mainParameterNum];   //NPCのメインパラメータの配列確保
+        subParameter = new int[gameSystem.subParameterNum];     //NPCのメインパラメータの配列確保
 
         //NPCのメインパラメータのランダム生成
         for (int i = 0; i < mainParameter.Length; i++)
         {
-            mainParameter[i] = Random.Range(0, GameMainSystem.limitParameterStatic);
+            mainParameter[i] = Random.Range(0, gameSystem.limitParameter);
         }
-        Debug.Log("NPC mainParameter0：" + mainParameter[0]);
+        //Debug.Log("NPC mainParameter0：" + mainParameter[0]);
 
         //NPCのサブパラメータのランダム生成
         for (int i = 0; i < subParameter.Length; i++)
         {
-            subParameter[i] = Random.Range(0, GameMainSystem.limitParameterStatic);
+            subParameter[i] = Random.Range(0, gameSystem.limitParameter);
         }
-        Debug.Log("NPC subParameter0：" + subParameter[0]);
+        //Debug.Log("NPC subParameter0：" + subParameter[0]);
     }
 	
 	void Update () {

@@ -4,22 +4,53 @@ using UnityEngine;
 
 public class PlayerSystem : MonoBehaviour {
 
-    int[] mainParameter;          //プレイヤーのメインパラメータ
+    private enum MAIN_PARA_ID
+    {
+        normal = 0,
+        tempe,
+        air,
+        grav,
+        mass,
+        MAXID
+    };
+
+    private enum SAB_PARA_ID
+    {
+        water = 0,
+        elec,
+        pois,
+        metal,
+        MAXID
+    };
+
+    public GameObject cloudEffect;
+    public GameObject gravityModelGata;
+    public GameObject gravityModelNormal;
+    public GameObject gravityModelSphere;
+    GameObject initModel;
+
+    public static int[] mainParameter;          //プレイヤーのメインパラメータ
     int[] subParameter;           //プレイヤーのサブパラメータ
 
     public GameObject hitEffectPre;    //エフェクトの取得
     GameObject[] hitEffect;
     NpcParameter npcParameter;      //接触NPCのパラメータ
+    GameMainSystem gameSystem;
     
 	void Start () {
-        mainParameter = new int[GameMainSystem.mainParameterNumStatic];   //プレイヤーのメインパラメータの配列確保
-        subParameter = new int[GameMainSystem.subParameterNumStatic];     //プレイヤーのサブパラメータの配列確保
+        gameSystem = GameObject.Find("GameSystem").GetComponent<GameMainSystem>();
+        mainParameter = new int[(int)MAIN_PARA_ID.MAXID];   //プレイヤーのメインパラメータの配列確保
+        subParameter = new int[(int)SAB_PARA_ID.MAXID];     //プレイヤーのサブパラメータの配列確保
         
-        hitEffect = new GameObject[GameMainSystem.collisionPowerLightStatic];   //衝突時のエフェクトの配列準備
+        hitEffect = new GameObject[gameSystem.collisionPowerLight];   //衝突時のエフェクトの配列準備
+        initModel = GameObject.Find("meteorite");
+
+        SetParameterInit();
     }
 	
 	void Update () {
         NpcAttack();
+        //ChangePlayerState();
     }
 
     //衝突時の処理
@@ -37,7 +68,7 @@ public class PlayerSystem : MonoBehaviour {
             }
 
             //加算減算の処理
-            if (NpcInputTouch.moveVectorStatic.magnitude / Time.deltaTime <= GameMainSystem.flickSpeedfusionStatic)  //ぶつかった時の速度がしきい値以下だったら
+            if (NpcInputTouch.moveVectorStatic.magnitude / Time.deltaTime <= gameSystem.flickSpeedfusion)  //ぶつかった時の速度がしきい値以下だったら
             {
                 addParameter(npcParameter.mainParameter, npcParameter.subParameter);    //融合(加算)処理の呼び出し
                 Destroy(PlayerCollision.collider.gameObject, 0.1f);    //0.1秒後にNPCを消す
@@ -57,20 +88,20 @@ public class PlayerSystem : MonoBehaviour {
         //メインパラメータの加算
         for (int i = 0; i < mainParameter.Length; i++)
         {
-            if ((mainParameter[i] + npcMainPara[i]) <= GameMainSystem.limitParameterStatic) //上限以下だったらそのまま加算、超えたら上限値を代入
+            if ((mainParameter[i] + npcMainPara[i]) <= gameSystem.limitParameter) //上限以下だったらそのまま加算、超えたら上限値を代入
                 mainParameter[i] += npcMainPara[i];
             else
-                mainParameter[i] = GameMainSystem.limitParameterStatic;
+                mainParameter[i] = gameSystem.limitParameter;
         }
         Debug.Log("Sum mainParameter0：" + mainParameter[0]);
 
         //サブパラメータの加算
         for (int i = 0; i < subParameter.Length; i++)
         {
-            if ((subParameter[i] + npcSubPara[i]) <= GameMainSystem.limitParameterStatic) //上限以下だったらそのまま加算、超えたら上限値を代入
+            if ((subParameter[i] + npcSubPara[i]) <= gameSystem.limitParameter) //上限以下だったらそのまま加算、超えたら上限値を代入
                 subParameter[i] += npcSubPara[i];
             else
-                subParameter[i] = GameMainSystem.limitParameterStatic;
+                subParameter[i] = gameSystem.limitParameter;
         }
         Debug.Log("Sum subParameter0：" + subParameter[0]);
     }
@@ -106,4 +137,119 @@ public class PlayerSystem : MonoBehaviour {
 	public void AutoSaveSubPara(int num){
 		PlayerPrefs.SetInt ("Data0SabPara", mainParameter [num]);
 	}
+
+    void SetParameterInit()
+    {
+        string[] paramStr = { "norm", "temp", "air", "grav", "mess" };
+
+/**/
+        for (int i = (int)MAIN_PARA_ID.tempe; i < (int)MAIN_PARA_ID.MAXID; i++)
+        {
+            mainParameter[i] = PlayerPrefs.GetInt("prottype" + paramStr[i]);
+
+            Debug.Log(mainParameter[i]);
+        }
+/*/
+        mainParameter[(int)MAIN_PARA_ID.tempe] = 2;
+        mainParameter[(int)MAIN_PARA_ID.air] = 2;
+        mainParameter[(int)MAIN_PARA_ID.grav] = 2;
+        mainParameter[(int)MAIN_PARA_ID.mass] = 2;
+/**/
+    }
+
+    void ChangePlayerState()
+    {
+        //温度低　＋　水高　＝　テクスチャ　氷
+        ChangeIceTexture();
+
+        //温度中　＋　水高　＝　テクスチャ　水
+        ChangeWaterTexture();
+
+        //温度高　＋　水高　＝　テクスチャ　水＋雲
+        ChangeWaterCloudTexture();
+
+        //質量低　＝　スケール小
+        ChangeScaleSmall();
+
+        //質量中　＝　スケール中
+        ChangeScaleNormal();
+
+        //質量大　＝　スケール大
+        ChangeScaleLarge();
+
+        //重力低　＝　モデル　ガタガタ
+        ChangeModelGata();
+
+        //重力中　＝　モデル　ふつう
+        ChangeModelNormal();
+
+        //重力高　＝　モデル　球
+        ChangeModelSphere();
+    }
+
+    void ChangeIceTexture()
+    {
+        if (mainParameter[(int)MAIN_PARA_ID.tempe] <= 2 && mainParameter[(int)SAB_PARA_ID.water] >= 6)
+        {
+
+        }
+    }
+
+    void ChangeWaterTexture()
+    {
+
+    }
+
+    void ChangeWaterCloudTexture()
+    {
+        //Instantiate(cloudEffect, this.transform.position, this.transform.rotation);
+    }
+
+    //質量低　＝　スケール小
+    void ChangeScaleSmall()
+    {
+        if (PlayerSystem.mainParameter[3] <= gameSystem.lowParameter)
+            this.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        else if (PlayerSystem.mainParameter[3] >= gameSystem.highParameter)
+            this.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
+
+    }
+
+    //質量中　＝　スケール中
+    void ChangeScaleNormal()
+    {
+        if (PlayerSystem.mainParameter[3] <= 3)
+            this.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+    }
+
+    //質量大　＝　スケール大
+    void ChangeScaleLarge()
+    {
+        if (PlayerSystem.mainParameter[3] >= 6)
+            this.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
+    }
+
+    //重力低　＝　モデル　ガタガタ
+    void ChangeModelGata()
+    {
+        gravityModelGata.SetActive(true);
+        gravityModelNormal.SetActive(false);
+        gravityModelSphere.SetActive(false);
+    }
+
+    //重力中　＝　モデル　ふつう
+    void ChangeModelNormal()
+    {
+        gravityModelGata.SetActive(false);
+        gravityModelNormal.SetActive(true);
+        gravityModelSphere.SetActive(false);
+    }
+
+    //重力高　＝　モデル　球
+    void ChangeModelSphere()
+    {
+        gravityModelGata.SetActive(false);
+        gravityModelNormal.SetActive(false);
+        gravityModelSphere.SetActive(true);
+    }
 }

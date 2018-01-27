@@ -81,19 +81,25 @@ public class PlayerState : MonoBehaviour {
     //質量低　＝　スケール小
     void ChangeScaleSmall()
     {
-        this.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        if (PlayerSystem.mainParameter[3] <= 2)
+            this.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        else if (PlayerSystem.mainParameter[3] <= 5)
+            this.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+
     }
 
     //質量中　＝　スケール中
     void ChangeScaleNormal()
     {
-        this.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        if (PlayerSystem.mainParameter[3] <= 3)
+            this.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
     }
 
     //質量大　＝　スケール大
     void ChangeScaleLarge()
     {
-        this.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
+        if (PlayerSystem.mainParameter[3] >= 6)
+            this.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
     }
 
     //重力低　＝　モデル　ガタガタ
