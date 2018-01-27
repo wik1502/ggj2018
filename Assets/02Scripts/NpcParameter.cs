@@ -33,6 +33,16 @@ public class NpcParameter : MonoBehaviour {
     //public int[] subParameter;    //NPCのサブパラメータ
     GameMainSystem gameSystem;
     
+    public int GetMainParam()
+    {
+        return (int)mainParam;
+    }
+
+    public int GetSubParam()
+    {
+        return (int)subParam;
+    }
+
     void Start () {
         gameSystem = GameObject.Find("GameSystem").GetComponent<GameMainSystem>();
 /*

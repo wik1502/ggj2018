@@ -44,7 +44,8 @@ public class PlayerSystem : MonoBehaviour {
         subParameter = new int[(int)SAB_PARA_ID.MAXID];             //プレイヤーのサブパラメータの配列確保
         hitEffect = new GameObject[gameSystem.collisionPowerLight]; //衝突時のエフェクトの配列準備
         SetParameterInit();                                         //初期パラメータの代入
-        changeWaitCount = 0;
+        changeWaitCount = 0;                                        //演出用の待ち時間カウント
+        ChangePlayerState();                                        //初期状態の表現
     }
 	
 	void Update () {
@@ -71,12 +72,12 @@ public class PlayerSystem : MonoBehaviour {
             //加算減算の処理
             if (NpcInputTouch.moveVectorStatic.magnitude / Time.deltaTime <= gameSystem.flickSpeedfusion)  //ぶつかった時の速度がしきい値以下だったら
             {
-                //addParameter(npcParameter.mainParameter, npcParameter.subParameter);    //融合(加算)処理の呼び出し
+                addParameter(npcParameter.GetMainParam(), npcParameter.GetSubParam());    //融合(加算)処理の呼び出し
                 Destroy(PlayerCollision.collider.gameObject, 0.1f);    //0.1秒後にNPCを消す
             }
             else
             {
-                //cutParameter(npcParameter.mainParameter, npcParameter.subParameter);    //貫通(減算)処理の呼び出し
+                cutParameter(npcParameter.GetMainParam(), npcParameter.GetSubParam());    //貫通(減算)処理の呼び出し
             }
             PlayerCollision.triggerEnter = false;   //NPC死す
         }
@@ -84,51 +85,28 @@ public class PlayerSystem : MonoBehaviour {
     
 
     /*  融合(加算)処理  */
-    void addParameter(int[] npcMainPara, int[] npcSubPara)
+    void addParameter(int npcMainPara, int npcSubPara)
     {
         //メインパラメータの加算
-        for (int i = 0; i < mainParameter.Length; i++)
-        {
-            if ((mainParameter[i] + npcMainPara[i]) <= gameSystem.limitParameter) //上限以下だったらそのまま加算、超えたら上限値を代入
-                mainParameter[i] += npcMainPara[i];
-            else
-                mainParameter[i] = gameSystem.limitParameter;
-        }
-        Debug.Log("Sum mainParameter0：" + mainParameter[0]);
-
+        mainParameter[npcMainPara] = Mathf.Min(mainParameter[npcMainPara] + 1, gameSystem.limitParameter);
+        Debug.Log("Add mainParameter"+ npcMainPara + "：" + mainParameter[npcMainPara]);
+        
         //サブパラメータの加算
-        for (int i = 0; i < subParameter.Length; i++)
-        {
-            if ((subParameter[i] + npcSubPara[i]) <= gameSystem.limitParameter) //上限以下だったらそのまま加算、超えたら上限値を代入
-                subParameter[i] += npcSubPara[i];
-            else
-                subParameter[i] = gameSystem.limitParameter;
-        }
-        //Debug.Log("Sum subParameter0：" + subParameter[0]);
+        subParameter[npcSubPara] = Mathf.Min(subParameter[npcSubPara] + 1, gameSystem.limitParameter);
+
+        //デバッグ用
+        //subParameter[3] = 6;    //金属に変更
     }
 
     /*  貫通(減算)処理  */
-    void cutParameter(int[] npcMainPara, int[] npcSubPara)
+    void cutParameter(int npcMainPara, int npcSubPara)
     {
         //メインパラメータの減算
-        for (int i = 0; i < mainParameter.Length; i++)
-        {
-            if ((mainParameter[i] - npcMainPara[i]) >= 0) //上限以下だったらそのまま加算、超えたら上限値を代入
-                mainParameter[i] -= npcMainPara[i];
-            else
-                mainParameter[i] = 0;
-        }
-        Debug.Log("Sum mainParameter0：" + mainParameter[0]);
-
+        mainParameter[npcMainPara] = Mathf.Max(mainParameter[npcMainPara] - 1, 0);
+        Debug.Log("Cut mainParameter" + npcMainPara + "：" + mainParameter[npcMainPara]);
+        
         //サブパラメータの減算
-        for (int i = 0; i < subParameter.Length; i++)
-        {
-            if ((subParameter[i] - npcSubPara[i]) >= 0) //上限以下だったらそのまま加算、超えたら上限値を代入
-                subParameter[i] -= npcSubPara[i];
-            else
-                subParameter[i] = 0;
-        }
-        //Debug.Log("Sum subParameter0：" + subParameter[0]);
+        subParameter[npcSubPara] = Mathf.Max(subParameter[npcSubPara] - 1, 0);
     }
 
     void ChangeStateCount()
@@ -167,11 +145,13 @@ public class PlayerSystem : MonoBehaviour {
 
     void ChangePlayerState()
     {
-        ChangeWaterMaterial();  //水：マテリアル・エフェクト変更
+        ChangeWaterMaterial();  //温度・水：マテリアル・エフェクト変更
 
         ChangeModel();          //重力：モデル変更
 
         ChangeScaleSmall();     //質量：スケール変更
+
+        ChangeMetalMaterial();  //金属：マテリアル変更
     }
 
     void ChangeWaterMaterial()
@@ -181,12 +161,12 @@ public class PlayerSystem : MonoBehaviour {
             if (mainParameter[(int)MAIN_PARA_ID.tempe] <= gameSystem.lowParameter)  //温度が低いとき
             {
                 for (int i = 0; i < gravityModel.Length; i++)
-                    gravityModel[i].GetComponent<Renderer>().material = changeMaterial[0];     //マテリアルを氷に変更
+                    gravityModel[i].GetComponent<Renderer>().material = changeMaterial[0];     //すべてのモデルのマテリアルを氷に変更
             }
             else
             {
                 for (int i = 0; i < gravityModel.Length; i++)
-                    gravityModel[i].GetComponent<Renderer>().material = changeMaterial[1];     //マテリアルを水に変更
+                    gravityModel[i].GetComponent<Renderer>().material = changeMaterial[1];     //すべてのモデルのマテリアルを水に変更
                 if (mainParameter[(int)MAIN_PARA_ID.tempe] >= gameSystem.highParameter)
                 {
                     cloud = Instantiate(cloudEffect, this.transform.position, this.transform.rotation); //雲のエフェクトを再生
@@ -196,9 +176,10 @@ public class PlayerSystem : MonoBehaviour {
         else
         {
             for (int i = 0; i < gravityModel.Length; i++)
-                gravityModel[i].GetComponent<Renderer>().material = changeMaterial[2];     //マテリアルを岩に変更
+                gravityModel[i].GetComponent<Renderer>().material = changeMaterial[2];     //すべてのモデルのマテリアルを岩に変更
         }
 
+        //水が少なくなるか、温度が低くなって、雲があったら、雲を消す
         if ((subParameter[(int)SAB_PARA_ID.water] <= gameSystem.lowParameter || mainParameter[(int)MAIN_PARA_ID.tempe] < gameSystem.highParameter) && cloud != null)
         {
             Destroy(cloud, 0.5f);
@@ -239,6 +220,16 @@ public class PlayerSystem : MonoBehaviour {
         else if (mainParameter[(int)MAIN_PARA_ID.mass] >= gameSystem.highParameter) //質量：高＝大きい
             this.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
         else
-            this.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);      //質量：中＝真ん中
+            this.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);              //質量：中＝真ん中
+    }
+
+    //金属：マテリアル変更
+    void ChangeMetalMaterial()
+    {
+        if (subParameter[(int)SAB_PARA_ID.metal] >= gameSystem.highParameter)           //金属が多いとき
+        {
+            for (int i = 0; i < gravityModel.Length; i++)
+                gravityModel[i].GetComponent<Renderer>().material = changeMaterial[3];  //すべてのモデルのマテリアルを金属に変更
+        }
     }
 }
