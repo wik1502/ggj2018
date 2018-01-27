@@ -30,11 +30,13 @@ public class PlayerSystem : MonoBehaviour {
     int[] mainParameter;  //プレイヤーのメインパラメータ
     int[] subParameter;                 //プレイヤーのサブパラメータ
     float changeWaitCount;
+    bool countStart;
 
     public GameObject hitEffectPre;     //エフェクトの取得
     GameObject[] hitEffect;             //衝突時のエフェクト
     NpcParameter npcParameter;          //接触NPCのパラメータ
     GameMainSystem gameSystem;
+    GameObject cloud;
     
 	void Start () {
         gameSystem = GameObject.Find("GameSystem").GetComponent<GameMainSystem>();
@@ -56,6 +58,7 @@ public class PlayerSystem : MonoBehaviour {
         if (PlayerCollision.triggerEnter)   //ぶつかった瞬間だけの処理
         {
             npcParameter = PlayerCollision.collider.GetComponent<NpcParameter>();           //ぶつかったNPCのパラメータの取得
+            countStart = true;
             changeWaitCount = 0;
 
             //エフェクトの処理
@@ -130,11 +133,15 @@ public class PlayerSystem : MonoBehaviour {
 
     void ChangeStateCount()
     {
-        changeWaitCount += Time.deltaTime;
-        if (changeWaitCount > 0.5f)
+        if (countStart)
         {
-            ChangePlayerState();
-            changeWaitCount = 0;
+            changeWaitCount += Time.deltaTime;
+            if (changeWaitCount > 0.5f)
+            {
+                ChangePlayerState();
+                changeWaitCount = 0;
+                countStart = false;
+            }
         }
     }
 
@@ -182,7 +189,7 @@ public class PlayerSystem : MonoBehaviour {
                     gravityModel[i].GetComponent<Renderer>().material = changeMaterial[1];     //マテリアルを水に変更
                 if (mainParameter[(int)MAIN_PARA_ID.tempe] >= gameSystem.highParameter)
                 {
-                    Instantiate(cloudEffect, this.transform.position, this.transform.rotation); //雲のエフェクトを再生
+                    cloud = Instantiate(cloudEffect, this.transform.position, this.transform.rotation); //雲のエフェクトを再生
                 }
             }
         }
@@ -190,6 +197,11 @@ public class PlayerSystem : MonoBehaviour {
         {
             for (int i = 0; i < gravityModel.Length; i++)
                 gravityModel[i].GetComponent<Renderer>().material = changeMaterial[2];     //マテリアルを岩に変更
+        }
+
+        if ((subParameter[(int)SAB_PARA_ID.water] <= gameSystem.lowParameter || mainParameter[(int)MAIN_PARA_ID.tempe] < gameSystem.highParameter) && cloud != null)
+        {
+            Destroy(cloud, 0.5f);
         }
     }
     
