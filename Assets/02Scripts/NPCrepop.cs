@@ -64,6 +64,10 @@ public class NPCrepop : MonoBehaviour {
     {
         //ポップ時の音をここで流す
         popPos = new Vector3((Random.Range(0, 10) + 5) * (Random.Range(0, 2) * 2 - 1), (Random.Range(0, 3) + 3) * (Random.Range(0, 2) * 2 - 1), 0);
+        if (popPos.x >= 9 && popPos.y >= 4.5)
+        {
+            popPos.y = 3;
+        }
         GameObject generatedNPC = Instantiate(npc, popPos, transform.rotation);
         int mParam = 0;
         int sParam = 0;
@@ -111,7 +115,7 @@ public class NPCrepop : MonoBehaviour {
                 break;
             default:
                 mParam = Random.Range(0, 5);
-                sParam = Random.Range(0, 4);
+                sParam = Random.Range(0, 5);
                 break;
         }
 
