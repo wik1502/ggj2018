@@ -4,4 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 0
+    path: Assets/Suganuma/Scene/SetUpScene.unity
+    guid: a78e6c1840e766643bd77211bd75c338
+  - enabled: 1
+    path: Assets/01Scenes/02GameMain.unity
+    guid: ec2227f50f81f95428f8ccc95aa29fbf
