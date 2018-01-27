@@ -85,6 +85,9 @@ public class PlayerSystem : MonoBehaviour {
     /*  融合(加算)処理  */
     void addParameter(int[] npcMainPara, int[] npcSubPara)
     {
+
+        Debug.Log("length" + npcMainPara.Length);
+
         //メインパラメータの加算
         for (int i = 0; i < mainParameter.Length; i++)
         {
