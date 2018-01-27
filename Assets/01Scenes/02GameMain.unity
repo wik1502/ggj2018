@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1187,7 +1187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   changeMaterial:
   - {fileID: 2100000, guid: cab7f327a9f784c408da3ba8c063a5b5, type: 2}
-  - {fileID: 2100000, guid: 1ac199ddf5c1a0146b5f6386c5000565, type: 2}
+  - {fileID: 2100000, guid: 6263f36919d7b94479c48d55e9bbdc50, type: 2}
   - {fileID: 2100000, guid: 714e1da72b13d4346a2eeb41376ea085, type: 2}
   cloudEffect: {fileID: 1852901447932198, guid: 95372dbffba2528499319394004b3ee1,
     type: 2}
