@@ -9,7 +9,8 @@ public class TitleManagerScript : MonoBehaviour {
 	public GameObject loadButton;
 	// Use this for initialization
 	void Start () {
-		PlayerPrefs.DeleteKey (SCENE_NAME);
+        SoundManager.Instance.PlayBGM(0);
+        PlayerPrefs.DeleteKey (SCENE_NAME);
 	}
 	
 	// Update is called once per frame

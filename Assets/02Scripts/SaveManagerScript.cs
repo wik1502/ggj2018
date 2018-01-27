@@ -21,7 +21,7 @@ public class SaveManagerScript : MonoBehaviour {
 	};
 
 	private enum SAB_PARA_ID {
-		water = 0,
+		water = 0,						//イメージとしては　const int water = 0(読み取り専用)
 		elec,
 		pois,
 		metal,
@@ -30,11 +30,23 @@ public class SaveManagerScript : MonoBehaviour {
 
 	string[] mainParamName = {"defalt","tempe", "air","grav","mass"};
 	string[] sabParamName = {"water", "elec","pois","metal"};
+	int cha;
+	int j, l;
+	int[] mainPara = new int[(int)(MAIN_PARA_ID.MAXID) - 1];
+	int[] sabPara = new int[(int)(SAB_PARA_ID.MAXID)];
 	// Use this for initialization
 	void Start () {
-		for (int j = 1; j < 5; j++) {
-			
+		for (j = 1; j < (int)MAIN_PARA_ID.MAXID; j++) {
+			cha = PlayerPrefs.GetInt ("Data0" + mainParamName [j]);
+			mainPara [j - 1] = cha;
+			Debug.Log (mainPara [j - 1]);
 		}
+		for (l = 0; l < (int)SAB_PARA_ID.MAXID; l++) {
+			cha = PlayerPrefs.GetInt ("Data0" + sabParamName [l]);
+			sabPara [l] = cha;
+			Debug.Log (sabPara [l]);
+		}
+
 	}
 
 	// Update is called once per frame
@@ -44,11 +56,13 @@ public class SaveManagerScript : MonoBehaviour {
 
 	public void PushSaveButton(int saveNo){								//押されたセーブボタンのスクリプト＆ボタンの番号読み込み
 		Debug.Log (saveNo);												//選択したロードボタンをログで表示
-		for(int i = 1; i < 5; i++){
-			PlayerPrefs.SetInt ("data" + saveNo + "MainPara" + mainParamName[i], PlayerPrefs.GetInt("data0MainPara"+mainParamName[i]));		//
+		for(int i = 1; i < (int)MAIN_PARA_ID.MAXID; i++){
+			PlayerPrefs.SetInt ("data" + saveNo + "MainPara" + mainParamName[i], mainPara[i]);		//メインパラメータを保管
+			Debug.Log(PlayerPrefs.GetInt ("data" + saveNo + "MainPara" + mainParamName[i]));
 		}
-		for(int i = 0; i < 4; i++){
-			PlayerPrefs.SetInt ("data" + saveNo + "SabPara" + mainParamName[i], PlayerPrefs.GetInt("data0MainPara"+mainParamName[i]));		//
+		for(int k = 0; k < (int)SAB_PARA_ID.MAXID; k++){
+			PlayerPrefs.SetInt ("data" + saveNo + "SabPara" + mainParamName[k], sabPara[k]);		//サブパラメータを保管
+			Debug.Log(PlayerPrefs.GetInt ("data" + saveNo + "SabPara" + sabParamName[k]));
 		}
 
 		PlayerPrefs.Save ();											//セーブ
