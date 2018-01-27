@@ -169,7 +169,7 @@ public class PlayerSystem : MonoBehaviour {
 
     void ChangeWaterMaterial()
     {
-        if (subParameter[(int)SAB_PARA_ID.water] <= gameSystem.highParameter)       //水が多いとき
+        if (subParameter[(int)SAB_PARA_ID.water] >= gameSystem.highParameter)       //水が多いとき
         {
             if (mainParameter[(int)MAIN_PARA_ID.tempe] <= gameSystem.lowParameter)  //温度が低いとき
             {
@@ -182,9 +182,14 @@ public class PlayerSystem : MonoBehaviour {
                     gravityModel[i].GetComponent<Renderer>().material = changeMaterial[1];     //マテリアルを水に変更
                 if (mainParameter[(int)MAIN_PARA_ID.tempe] >= gameSystem.highParameter)
                 {
-                    //Instantiate(cloudEffect, this.transform.position, this.transform.rotation); //雲のエフェクトを再生
+                    Instantiate(cloudEffect, this.transform.position, this.transform.rotation); //雲のエフェクトを再生
                 }
             }
+        }
+        else
+        {
+            for (int i = 0; i < gravityModel.Length; i++)
+                gravityModel[i].GetComponent<Renderer>().material = changeMaterial[2];     //マテリアルを岩に変更
         }
     }
     

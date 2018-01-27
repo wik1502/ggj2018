@@ -206,7 +206,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 6d11b4f0a2a0faa48847b92c48342f20, type: 3}
+  - {fileID: 2100000, guid: 714e1da72b13d4346a2eeb41376ea085, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -396,7 +396,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 5309c1cb8a595794baf564492d72e7eb, type: 3}
+  - {fileID: 2100000, guid: 714e1da72b13d4346a2eeb41376ea085, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -544,6 +544,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 24daf5a152db8f8429088b2c75364563, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 714e1da72b13d4346a2eeb41376ea085, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 24daf5a152db8f8429088b2c75364563, type: 3}
   m_IsPrefabParent: 0
@@ -610,7 +614,9 @@ MonoBehaviour:
   changeMaterial:
   - {fileID: 2100000, guid: cab7f327a9f784c408da3ba8c063a5b5, type: 2}
   - {fileID: 2100000, guid: 1ac199ddf5c1a0146b5f6386c5000565, type: 2}
-  cloudEffect: {fileID: 0}
+  - {fileID: 2100000, guid: 714e1da72b13d4346a2eeb41376ea085, type: 2}
+  cloudEffect: {fileID: 1852901447932198, guid: 95372dbffba2528499319394004b3ee1,
+    type: 2}
   gravityModel:
   - {fileID: 780481049}
   - {fileID: 1066284027}
