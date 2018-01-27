@@ -15,9 +15,9 @@ public class TitleManagerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (PlayerPrefs.HasKey ("data1gravity") == false && PlayerPrefs.HasKey ("data2gravity") == false && 
-			PlayerPrefs.HasKey ("data3gravity") == false && PlayerPrefs.HasKey ("data4gravity") == false && 
-			PlayerPrefs.HasKey ("data5gravity") == false) {			//セーブデータがあるかどうかの確認
+		if (PlayerPrefs.HasKey ("data1tempe") == false && PlayerPrefs.HasKey ("data2tempe") == false && 
+			PlayerPrefs.HasKey ("data3tempe") == false && PlayerPrefs.HasKey ("data4tempe") == false && 
+			PlayerPrefs.HasKey ("data5tempe") == false) {			//セーブデータがあるかどうかの確認
 			//セーブデータが１つもない場合
 			loadButton.SetActive(false);
 		} else {

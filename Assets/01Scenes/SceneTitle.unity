@@ -189,7 +189,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 856494260}
+      - m_Target: {fileID: 856494264}
         m_MethodName: StartButton
         m_Mode: 1
         m_Arguments:
@@ -316,6 +316,48 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &480215906
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4177625092434944, guid: 23133167954a63d408c56026eb5f30fc, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4177625092434944, guid: 23133167954a63d408c56026eb5f30fc, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4177625092434944, guid: 23133167954a63d408c56026eb5f30fc, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4177625092434944, guid: 23133167954a63d408c56026eb5f30fc, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4177625092434944, guid: 23133167954a63d408c56026eb5f30fc, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4177625092434944, guid: 23133167954a63d408c56026eb5f30fc, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4177625092434944, guid: 23133167954a63d408c56026eb5f30fc, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4177625092434944, guid: 23133167954a63d408c56026eb5f30fc, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 23133167954a63d408c56026eb5f30fc, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &856494259
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,6 +369,7 @@ GameObject:
   - component: {fileID: 856494262}
   - component: {fileID: 856494261}
   - component: {fileID: 856494260}
+  - component: {fileID: 856494264}
   m_Layer: 0
   m_Name: TitleManager
   m_TagString: Untagged
@@ -345,7 +388,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcecf37c3039244cafa843fc049749a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadButton: {fileID: 2107179995}
 --- !u!114 &856494261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -391,6 +433,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &856494264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 856494259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b25a867782fce984a906ca7eda585269, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadButton: {fileID: 2107179995}
 --- !u!1 &937075118
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,7 +607,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 856494260}
+      - m_Target: {fileID: 856494264}
         m_MethodName: DeleteButton
         m_Mode: 1
         m_Arguments:
@@ -1081,7 +1135,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 856494260}
+      - m_Target: {fileID: 856494264}
         m_MethodName: LoadButton
         m_Mode: 1
         m_Arguments:
