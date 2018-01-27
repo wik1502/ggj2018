@@ -51,11 +51,11 @@ public class TotalPlanetStatus : MonoBehaviour {
             planetStatus[(int)id]++;
         }
 
-        string[] paramStr = { "", "温度", "空気", "重力", "質量" };
+        string[] paramStr = { "norm", "temp", "air", "grav", "mess" };
 
-        for (int i = 0; i < (int)MAIN_PARA_ID.MAXID; i++)
+        for (int i = 1; i < (int)MAIN_PARA_ID.MAXID; i++)
         {
-            Debug.Log(paramStr[i] + planetStatus[i]);
+			PlayerPrefs.SetInt("prottype"+paramStr[i],planetStatus[i]);
         }
     }
 }

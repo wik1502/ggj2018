@@ -7,10 +7,6 @@ using System;
 
 public class SaveManagerScript : MonoBehaviour {
 	public static string SCENE_NAME = "SceneName";
-	public static int tempe;											//温度
-	public static int air;												//空気
-	public static int grav;												//重力
-	public static int mass;												//質量
 	string sceneName;
 
 	[SerializeField] private GameObject player;
@@ -36,7 +32,9 @@ public class SaveManagerScript : MonoBehaviour {
 	string[] sabParamName = {"water", "elec","pois","metal"};
 	// Use this for initialization
 	void Start () {
-		
+		for (int j = 1; j < 5; j++) {
+			
+		}
 	}
 
 	// Update is called once per frame
@@ -46,13 +44,13 @@ public class SaveManagerScript : MonoBehaviour {
 
 	public void PushSaveButton(int saveNo){								//押されたセーブボタンのスクリプト＆ボタンの番号読み込み
 		Debug.Log (saveNo);												//選択したロードボタンをログで表示
-		PlayerPrefs.SetInt ("data" + saveNo + "MainPara", player.GetComponent<PlayerScript>().GetParam((int)MAIN_PARA_ID.air));		//「温度」をセーブ内容として保管
-		//PlayerPrefs.SetInt ("data" + saveNo + "air", gra);				//「空気」をセーブ内容として保管
-//		PlayerPrefs.SetInt ("data" + saveNo + "gravity", PlayerScript.MAIN_PARA_ID.grav);			//「重力」をセーブ内容として保管
-		/*PlayerPrefs.SetInt ("data" + saveNo + "mass", gra);				//「質量」をセーブ内容として保管
-		PlayerPrefs.SetInt ("data" + saveNo + "poison", gra);			//「毒」をセーブ内容として保管
-		PlayerPrefs.SetInt ("data" + saveNo + "metal", gra);			//「金属」をセーブ内容として保管
-		*/
+		for(int i = 1; i < 5; i++){
+			PlayerPrefs.SetInt ("data" + saveNo + "MainPara" + mainParamName[i], PlayerPrefs.GetInt("data0MainPara"+mainParamName[i]));		//
+		}
+		for(int i = 0; i < 4; i++){
+			PlayerPrefs.SetInt ("data" + saveNo + "SabPara" + mainParamName[i], PlayerPrefs.GetInt("data0MainPara"+mainParamName[i]));		//
+		}
+
 		PlayerPrefs.Save ();											//セーブ
 	}
 

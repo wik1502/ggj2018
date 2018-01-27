@@ -21,7 +21,7 @@ public class SetUpToMainGame : MonoBehaviour {
         }
         if(count <= 0)
         {
-            //SceneManager.LoadScene("MainGame");
+            SceneManager.LoadScene("02GameMain");
             Debug.Log("idou");
         }
 	}
