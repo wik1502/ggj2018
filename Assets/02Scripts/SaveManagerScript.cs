@@ -16,7 +16,8 @@ public class SaveManagerScript : MonoBehaviour {
 	[SerializeField] private GameObject player;
 
 	private enum MAIN_PARA_ID {
-		tempe = 0,
+		normal = 0,
+		tempe,
 		air,
 		grav,
 		mass,
@@ -31,7 +32,7 @@ public class SaveManagerScript : MonoBehaviour {
 		MAXID
 	};
 
-	string[] mainParamName = {"tempe", "air","grav","mass"};
+	string[] mainParamName = {"defalt","tempe", "air","grav","mass"};
 	string[] sabParamName = {"water", "elec","pois","metal"};
 	// Use this for initialization
 	void Start () {
