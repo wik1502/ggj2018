@@ -23,34 +23,31 @@ public class PlayerSystem : MonoBehaviour {
         MAXID
     };
 
+    public Material[] changeMaterial;
     public GameObject cloudEffect;
     public GameObject gravityModelGata;
     public GameObject gravityModelNormal;
     public GameObject gravityModelSphere;
-    GameObject initModel;
 
-    public static int[] mainParameter;          //プレイヤーのメインパラメータ
-    int[] subParameter;           //プレイヤーのサブパラメータ
+    public static int[] mainParameter;  //プレイヤーのメインパラメータ
+    int[] subParameter;                 //プレイヤーのサブパラメータ
 
-    public GameObject hitEffectPre;    //エフェクトの取得
-    GameObject[] hitEffect;
-    NpcParameter npcParameter;      //接触NPCのパラメータ
+    public GameObject hitEffectPre;     //エフェクトの取得
+    GameObject[] hitEffect;             //衝突時のエフェクト
+    NpcParameter npcParameter;          //接触NPCのパラメータ
     GameMainSystem gameSystem;
     
 	void Start () {
         gameSystem = GameObject.Find("GameSystem").GetComponent<GameMainSystem>();
-        mainParameter = new int[(int)MAIN_PARA_ID.MAXID];   //プレイヤーのメインパラメータの配列確保
-        subParameter = new int[(int)SAB_PARA_ID.MAXID];     //プレイヤーのサブパラメータの配列確保
-        
-        hitEffect = new GameObject[gameSystem.collisionPowerLight];   //衝突時のエフェクトの配列準備
-        initModel = GameObject.Find("meteorite");
-
-        SetParameterInit();
+        mainParameter = new int[(int)MAIN_PARA_ID.MAXID];           //プレイヤーのメインパラメータの配列確保
+        subParameter = new int[(int)SAB_PARA_ID.MAXID];             //プレイヤーのサブパラメータの配列確保
+        hitEffect = new GameObject[gameSystem.collisionPowerLight]; //衝突時のエフェクトの配列準備
+        SetParameterInit();                                         //初期パラメータの代入
     }
 	
 	void Update () {
         NpcAttack();
-        ChangePlayerState();
+        
     }
 
     //衝突時の処理
@@ -78,6 +75,7 @@ public class PlayerSystem : MonoBehaviour {
                 cutParameter(npcParameter.mainParameter, npcParameter.subParameter);    //貫通(減算)処理の呼び出し
             }
             PlayerCollision.triggerEnter = false;   //NPC死す
+            ChangePlayerState();
         }
     }
     
@@ -168,9 +166,9 @@ public class PlayerSystem : MonoBehaviour {
 
     void ChangeIceTexture()
     {
-        if (mainParameter[(int)MAIN_PARA_ID.tempe] <= 2 && mainParameter[(int)SAB_PARA_ID.water] >= 6)
+        if (mainParameter[(int)MAIN_PARA_ID.tempe] <= gameSystem.lowParameter)
         {
-
+            
         }
     }
 
@@ -187,14 +185,14 @@ public class PlayerSystem : MonoBehaviour {
     //重力：モデル変更
     void ChangeModel()
     {
-        if (PlayerSystem.mainParameter[3] <= gameSystem.lowParameter)
+        if (PlayerSystem.mainParameter[(int)MAIN_PARA_ID.grav] <= gameSystem.lowParameter)
         {
             //重力：低＝ガタガタ
             gravityModelGata.SetActive(true);
             gravityModelNormal.SetActive(false);
             gravityModelSphere.SetActive(false);
         }
-        else if (PlayerSystem.mainParameter[3] >= gameSystem.highParameter)
+        else if (PlayerSystem.mainParameter[(int)MAIN_PARA_ID.grav] >= gameSystem.highParameter)
         {
             //重力：高＝球
             gravityModelGata.SetActive(false);
@@ -213,9 +211,9 @@ public class PlayerSystem : MonoBehaviour {
     //質量：スケール変更
     void ChangeScaleSmall()
     {
-        if (PlayerSystem.mainParameter[4] <= gameSystem.lowParameter)       //質量：低＝小さい
+        if (PlayerSystem.mainParameter[(int)MAIN_PARA_ID.mass] <= gameSystem.lowParameter)       //質量：低＝小さい
             this.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        else if (PlayerSystem.mainParameter[4] >= gameSystem.highParameter) //質量：高＝大きい
+        else if (PlayerSystem.mainParameter[(int)MAIN_PARA_ID.mass] >= gameSystem.highParameter) //質量：高＝大きい
             this.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
         else
             this.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);      //質量：中＝真ん中
