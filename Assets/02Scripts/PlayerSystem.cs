@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class PlayerSystem : MonoBehaviour {
 
-    float[] mainParameter;          //プレイヤーのメインパラメータ
-    float[] subParameter;           //プレイヤーのサブパラメータ
+    int[] mainParameter;          //プレイヤーのメインパラメータ
+    int[] subParameter;           //プレイヤーのサブパラメータ
 
     public GameObject hitEffectPre;    //エフェクトの取得
     GameObject[] hitEffect;
     NpcParameter npcParameter;      //接触NPCのパラメータ
     
 	void Start () {
-        mainParameter = new float[GameMainSystem.mainParameterNumStatic];   //プレイヤーのメインパラメータの配列確保
-        subParameter = new float[GameMainSystem.subParameterNumStatic];     //プレイヤーのサブパラメータの配列確保
+        mainParameter = new int[GameMainSystem.mainParameterNumStatic];   //プレイヤーのメインパラメータの配列確保
+        subParameter = new int[GameMainSystem.subParameterNumStatic];     //プレイヤーのサブパラメータの配列確保
         
         hitEffect = new GameObject[GameMainSystem.collisionPowerLightStatic];   //衝突時のエフェクトの配列準備
     }
@@ -52,7 +52,7 @@ public class PlayerSystem : MonoBehaviour {
     
 
     /*  融合(加算)処理  */
-    void addParameter(float[] npcMainPara, float[] npcSubPara)
+    void addParameter(int[] npcMainPara, int[] npcSubPara)
     {
         //メインパラメータの加算
         for (int i = 0; i < mainParameter.Length; i++)
@@ -76,7 +76,7 @@ public class PlayerSystem : MonoBehaviour {
     }
 
     /*  貫通(減算)処理  */
-    void cutParameter(float[] npcMainPara, float[] npcSubPara)
+    void cutParameter(int[] npcMainPara, int[] npcSubPara)
     {
         //メインパラメータの減算
         for (int i = 0; i < mainParameter.Length; i++)

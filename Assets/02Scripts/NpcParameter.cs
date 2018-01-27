@@ -7,12 +7,12 @@ using UnityEngine;
 //そこも書き換えちゃうか山本に言ってください。
 public class NpcParameter : MonoBehaviour {
     
-    public float[] mainParameter;   //NPCのメインパラメータ
-    public float[] subParameter;    //NPCのサブパラメータ
+    public int[] mainParameter;   //NPCのメインパラメータ
+    public int[] subParameter;    //NPCのサブパラメータ
     
     void Start () {
-        mainParameter = new float[GameMainSystem.mainParameterNumStatic];   //NPCのメインパラメータの配列確保
-        subParameter = new float[GameMainSystem.subParameterNumStatic];     //NPCのメインパラメータの配列確保
+        mainParameter = new int[GameMainSystem.mainParameterNumStatic];   //NPCのメインパラメータの配列確保
+        subParameter = new int[GameMainSystem.subParameterNumStatic];     //NPCのメインパラメータの配列確保
 
         //NPCのメインパラメータのランダム生成
         for (int i = 0; i < mainParameter.Length; i++)
