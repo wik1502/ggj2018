@@ -50,7 +50,7 @@ public class PlayerSystem : MonoBehaviour {
 	
 	void Update () {
         NpcAttack();
-        //ChangePlayerState();
+        ChangePlayerState();
     }
 
     //衝突時の処理
@@ -85,9 +85,6 @@ public class PlayerSystem : MonoBehaviour {
     /*  融合(加算)処理  */
     void addParameter(int[] npcMainPara, int[] npcSubPara)
     {
-
-        Debug.Log("length" + npcMainPara.Length);
-
         //メインパラメータの加算
         for (int i = 0; i < mainParameter.Length; i++)
         {
@@ -106,7 +103,7 @@ public class PlayerSystem : MonoBehaviour {
             else
                 subParameter[i] = gameSystem.limitParameter;
         }
-        Debug.Log("Sum subParameter0：" + subParameter[0]);
+        //Debug.Log("Sum subParameter0：" + subParameter[0]);
     }
 
     /*  貫通(減算)処理  */
@@ -130,7 +127,7 @@ public class PlayerSystem : MonoBehaviour {
             else
                 subParameter[i] = 0;
         }
-        Debug.Log("Sum subParameter0：" + subParameter[0]);
+        //Debug.Log("Sum subParameter0：" + subParameter[0]);
     }
 
 	public void AutoSaveMainPara(int num){
@@ -144,50 +141,31 @@ public class PlayerSystem : MonoBehaviour {
     void SetParameterInit()
     {
         string[] paramStr = { "norm", "temp", "air", "grav", "mess" };
-
-/**/
+        
         for (int i = (int)MAIN_PARA_ID.tempe; i < (int)MAIN_PARA_ID.MAXID; i++)
         {
             mainParameter[i] = PlayerPrefs.GetInt("prottype" + paramStr[i]);
 
             Debug.Log(mainParameter[i]);
         }
-/*/
-        mainParameter[(int)MAIN_PARA_ID.tempe] = 2;
-        mainParameter[(int)MAIN_PARA_ID.air] = 2;
-        mainParameter[(int)MAIN_PARA_ID.grav] = 2;
-        mainParameter[(int)MAIN_PARA_ID.mass] = 2;
-/**/
     }
 
     void ChangePlayerState()
     {
         //温度低　＋　水高　＝　テクスチャ　氷
-        ChangeIceTexture();
+        //ChangeIceTexture();
 
         //温度中　＋　水高　＝　テクスチャ　水
-        ChangeWaterTexture();
+        //ChangeWaterTexture();
 
         //温度高　＋　水高　＝　テクスチャ　水＋雲
-        ChangeWaterCloudTexture();
-
-        //質量低　＝　スケール小
-        ChangeScaleSmall();
-
-        //質量中　＝　スケール中
-        ChangeScaleNormal();
-
-        //質量大　＝　スケール大
-        ChangeScaleLarge();
-
-        //重力低　＝　モデル　ガタガタ
-        ChangeModelGata();
-
-        //重力中　＝　モデル　ふつう
-        ChangeModelNormal();
-
-        //重力高　＝　モデル　球
-        ChangeModelSphere();
+        //ChangeWaterCloudTexture();
+        
+        ChangeScaleSmall(); //スケール変更
+        
+        ChangeModelGata();  //重力低　＝　モデル　ガタガタ
+        ChangeModelNormal();    //重力中　＝　モデル　ふつう
+        ChangeModelSphere();    //重力高　＝　モデル　球
     }
 
     void ChangeIceTexture()
@@ -216,20 +194,6 @@ public class PlayerSystem : MonoBehaviour {
         else if (PlayerSystem.mainParameter[3] >= gameSystem.highParameter)
             this.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
 
-    }
-
-    //質量中　＝　スケール中
-    void ChangeScaleNormal()
-    {
-        if (PlayerSystem.mainParameter[3] <= 3)
-            this.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-    }
-
-    //質量大　＝　スケール大
-    void ChangeScaleLarge()
-    {
-        if (PlayerSystem.mainParameter[3] >= 6)
-            this.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
     }
 
     //重力低　＝　モデル　ガタガタ
