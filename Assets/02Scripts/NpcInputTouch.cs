@@ -12,8 +12,6 @@ public class NpcInputTouch : MonoBehaviour {
     public static Vector3 moveVectorStatic; //moveVectorの外部参照用
     GameMainSystem gameSystem;
 
-    //[SerializeField] GameObject npcRepop;
-
     void Start () {
         gameSystem = GameObject.Find("GameSystem").GetComponent<GameMainSystem>();
         deadTrigger = false;                //NPCは死んでるか初期化
@@ -50,12 +48,7 @@ public class NpcInputTouch : MonoBehaviour {
     //離れたNPCを消す
     void DeleteNpc()
     {
-        if (Mathf.Abs((this.transform.position - player.transform.position).magnitude) > 15.0f)//距離が離れたら(カメラから出るくらい)
+        if (Mathf.Abs((this.transform.position - player.transform.position).magnitude) > 15.0f)  //距離が離れたら(カメラから出るくらい)
             Destroy(this.gameObject);    //NPCを消す
-    }
-
-    private void OnDestroy()
-    {
-        GameObject.Find("NpcPop").SendMessage("Repop");
     }
 }

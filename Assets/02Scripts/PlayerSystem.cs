@@ -25,17 +25,18 @@ public class PlayerSystem : MonoBehaviour {
 
     public Material[] changeMaterial;
     public GameObject cloudEffect;
-    public GameObject gravityModelGata;
-    public GameObject gravityModelNormal;
-    public GameObject gravityModelSphere;
+    public GameObject[] gravityModel;
 
-    public static int[] mainParameter;  //プレイヤーのメインパラメータ
+    int[] mainParameter;  //プレイヤーのメインパラメータ
     int[] subParameter;                 //プレイヤーのサブパラメータ
+    float changeWaitCount;
+    bool countStart;
 
     public GameObject hitEffectPre;     //エフェクトの取得
     GameObject[] hitEffect;             //衝突時のエフェクト
     NpcParameter npcParameter;          //接触NPCのパラメータ
     GameMainSystem gameSystem;
+    GameObject cloud;
     
 	void Start () {
         gameSystem = GameObject.Find("GameSystem").GetComponent<GameMainSystem>();
@@ -43,19 +44,22 @@ public class PlayerSystem : MonoBehaviour {
         subParameter = new int[(int)SAB_PARA_ID.MAXID];             //プレイヤーのサブパラメータの配列確保
         hitEffect = new GameObject[gameSystem.collisionPowerLight]; //衝突時のエフェクトの配列準備
         SetParameterInit();                                         //初期パラメータの代入
+        changeWaitCount = 0;
     }
 	
 	void Update () {
         NpcAttack();
-        
+        ChangeStateCount();
     }
 
     //衝突時の処理
     void NpcAttack()
     {
-        if (PlayerCollision.triggerEnter)
+        if (PlayerCollision.triggerEnter)   //ぶつかった瞬間だけの処理
         {
             npcParameter = PlayerCollision.collider.GetComponent<NpcParameter>();           //ぶつかったNPCのパラメータの取得
+            countStart = true;
+            changeWaitCount = 0;
 
             //エフェクトの処理
             for (int i = 0; i < hitEffect.Length; i++)
@@ -75,7 +79,6 @@ public class PlayerSystem : MonoBehaviour {
                 //cutParameter(npcParameter.mainParameter, npcParameter.subParameter);    //貫通(減算)処理の呼び出し
             }
             PlayerCollision.triggerEnter = false;   //NPC死す
-            ChangePlayerState();
         }
     }
     
@@ -128,6 +131,20 @@ public class PlayerSystem : MonoBehaviour {
         //Debug.Log("Sum subParameter0：" + subParameter[0]);
     }
 
+    void ChangeStateCount()
+    {
+        if (countStart)
+        {
+            changeWaitCount += Time.deltaTime;
+            if (changeWaitCount > 0.5f)
+            {
+                ChangePlayerState();
+                changeWaitCount = 0;
+                countStart = false;
+            }
+        }
+    }
+
 	public void AutoSaveMainPara(int num){
 		PlayerPrefs.SetInt ("Data0MainPara", mainParameter [num]);
 	}
@@ -150,73 +167,78 @@ public class PlayerSystem : MonoBehaviour {
 
     void ChangePlayerState()
     {
-        //温度低　＋　水高　＝　テクスチャ　氷
-        //ChangeIceTexture();
+        ChangeWaterMaterial();  //水：マテリアル・エフェクト変更
 
-        //温度中　＋　水高　＝　テクスチャ　水
-        //ChangeWaterTexture();
+        ChangeModel();          //重力：モデル変更
 
-        //温度高　＋　水高　＝　テクスチャ　水＋雲
-        //ChangeWaterCloudTexture();
-
-        ChangeModel();      //重力：モデル変更
-
-        ChangeScaleSmall(); //質量：スケール変更
+        ChangeScaleSmall();     //質量：スケール変更
     }
 
-    void ChangeIceTexture()
+    void ChangeWaterMaterial()
     {
-        if (mainParameter[(int)MAIN_PARA_ID.tempe] <= gameSystem.lowParameter)
+        if (subParameter[(int)SAB_PARA_ID.water] >= gameSystem.highParameter)       //水が多いとき
         {
-            
+            if (mainParameter[(int)MAIN_PARA_ID.tempe] <= gameSystem.lowParameter)  //温度が低いとき
+            {
+                for (int i = 0; i < gravityModel.Length; i++)
+                    gravityModel[i].GetComponent<Renderer>().material = changeMaterial[0];     //マテリアルを氷に変更
+            }
+            else
+            {
+                for (int i = 0; i < gravityModel.Length; i++)
+                    gravityModel[i].GetComponent<Renderer>().material = changeMaterial[1];     //マテリアルを水に変更
+                if (mainParameter[(int)MAIN_PARA_ID.tempe] >= gameSystem.highParameter)
+                {
+                    cloud = Instantiate(cloudEffect, this.transform.position, this.transform.rotation); //雲のエフェクトを再生
+                }
+            }
         }
-    }
+        else
+        {
+            for (int i = 0; i < gravityModel.Length; i++)
+                gravityModel[i].GetComponent<Renderer>().material = changeMaterial[2];     //マテリアルを岩に変更
+        }
 
-    void ChangeWaterTexture()
-    {
-
-    }
-
-    void ChangeWaterCloudTexture()
-    {
-        //Instantiate(cloudEffect, this.transform.position, this.transform.rotation);
+        if ((subParameter[(int)SAB_PARA_ID.water] <= gameSystem.lowParameter || mainParameter[(int)MAIN_PARA_ID.tempe] < gameSystem.highParameter) && cloud != null)
+        {
+            Destroy(cloud, 0.5f);
+        }
     }
     
     //重力：モデル変更
     void ChangeModel()
     {
-        if (PlayerSystem.mainParameter[(int)MAIN_PARA_ID.grav] <= gameSystem.lowParameter)
+        if (mainParameter[(int)MAIN_PARA_ID.grav] <= gameSystem.lowParameter)
         {
             //重力：低＝ガタガタ
-            gravityModelGata.SetActive(true);
-            gravityModelNormal.SetActive(false);
-            gravityModelSphere.SetActive(false);
+            gravityModel[0].SetActive(true);
+            gravityModel[1].SetActive(false);
+            gravityModel[2].SetActive(false);
         }
-        else if (PlayerSystem.mainParameter[(int)MAIN_PARA_ID.grav] >= gameSystem.highParameter)
+        else if (mainParameter[(int)MAIN_PARA_ID.grav] >= gameSystem.highParameter)
         {
             //重力：高＝球
-            gravityModelGata.SetActive(false);
-            gravityModelNormal.SetActive(false);
-            gravityModelSphere.SetActive(true);
+            gravityModel[0].SetActive(false);
+            gravityModel[1].SetActive(false);
+            gravityModel[2].SetActive(true);
         }
         else
         {
             //重力：中＝通常
-            gravityModelGata.SetActive(false);
-            gravityModelNormal.SetActive(true);
-            gravityModelSphere.SetActive(false);
+            gravityModel[0].SetActive(false);
+            gravityModel[1].SetActive(true);
+            gravityModel[2].SetActive(false);
         }
     }
 
     //質量：スケール変更
     void ChangeScaleSmall()
     {
-        if (PlayerSystem.mainParameter[(int)MAIN_PARA_ID.mass] <= gameSystem.lowParameter)       //質量：低＝小さい
+        if (mainParameter[(int)MAIN_PARA_ID.mass] <= gameSystem.lowParameter)       //質量：低＝小さい
             this.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        else if (PlayerSystem.mainParameter[(int)MAIN_PARA_ID.mass] >= gameSystem.highParameter) //質量：高＝大きい
+        else if (mainParameter[(int)MAIN_PARA_ID.mass] >= gameSystem.highParameter) //質量：高＝大きい
             this.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
         else
             this.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);      //質量：中＝真ん中
-
     }
 }

@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BGM:
-  - {fileID: 0}
+  - {fileID: 8300000, guid: acd4fb057b5e66343ad3ef4405b73a41, type: 3}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
