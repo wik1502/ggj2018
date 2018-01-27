@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-<<<<<<< HEAD
 using UnityEngine.SceneManagement;
-=======
->>>>>>> 7b9d16fa45607a14997f9789b736347e2cbe13ac
 
 public class MainManuScript : MonoBehaviour {
 	GameObject mainManu;					//メニューボタン
@@ -14,12 +11,9 @@ public class MainManuScript : MonoBehaviour {
 	GameObject resManu;						//リセットボタン
 	private bool opn;						//メニューを開いているかの判定
 
-<<<<<<< HEAD
 	public static string SCENE_NAME = "SceneName";
 	string sceneName;
 
-=======
->>>>>>> 7b9d16fa45607a14997f9789b736347e2cbe13ac
 	// Use this for initialization
 	void Start () {
 		mainManu = GameObject.Find ("ButtonManu");			//メニューボタンを探す
@@ -53,7 +47,6 @@ public class MainManuScript : MonoBehaviour {
 			opn = false;
 		}
 	}
-<<<<<<< HEAD
 
 	public void SaveButton(){
 		PlayerPrefs.SetString (SCENE_NAME, "02GameMain");		//SCENE_NAMEに"02GameMain"を代入
@@ -66,6 +59,4 @@ public class MainManuScript : MonoBehaviour {
 		PlayerPrefs.Save ();									//記録
 		SceneManager.LoadScene ("SceneLoad");					//ロードシーンに移る
 	}
-=======
->>>>>>> 7b9d16fa45607a14997f9789b736347e2cbe13ac
 }

@@ -71,12 +71,12 @@ public class PlayerSystem : MonoBehaviour {
             //加算減算の処理
             if (NpcInputTouch.moveVectorStatic.magnitude / Time.deltaTime <= gameSystem.flickSpeedfusion)  //ぶつかった時の速度がしきい値以下だったら
             {
-                //addParameter(npcParameter.mainParameter, npcParameter.subParameter);    //融合(加算)処理の呼び出し
+                addParameter(npcParameter.mainParameter, npcParameter.subParameter);    //融合(加算)処理の呼び出し
                 Destroy(PlayerCollision.collider.gameObject, 0.1f);    //0.1秒後にNPCを消す
             }
             else
             {
-                //cutParameter(npcParameter.mainParameter, npcParameter.subParameter);    //貫通(減算)処理の呼び出し
+                cutParameter(npcParameter.mainParameter, npcParameter.subParameter);    //貫通(減算)処理の呼び出し
             }
             PlayerCollision.triggerEnter = false;   //NPC死す
         }
