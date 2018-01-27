@@ -25,6 +25,8 @@ public class NpcParameter : MonoBehaviour {
         MAXID
     };
 
+    [SerializeField] private Color32[] colerPattern = new Color32[5];
+
     [SerializeField] GameObject[] iconPrefab;
     private MAIN_PARA_ID mainParam;
     private SAB_PARA_ID subParam;
@@ -69,10 +71,12 @@ public class NpcParameter : MonoBehaviour {
         Debug.Log((int)mainParam + ":" + (int)subParam);
         Debug.Log(mpStr[(int)mainParam] + ":" + spStr[(int)subParam]);
 
+        gameObject.GetComponent<Renderer>().material.color = colerPattern[(int)mainParam];
 
         GameObject a = Instantiate(iconPrefab[(int)subParam], gameObject.transform);
         a.transform.parent = gameObject.transform;
-        a.transform.position += new Vector3(0.5f, 0.5f, -0.5f);
+        a.transform.localPosition = new Vector3(0, -0, -0);
+        a.transform.localPosition += new Vector3(0.01f, -0.01f, 0f);
     }
 
 }
