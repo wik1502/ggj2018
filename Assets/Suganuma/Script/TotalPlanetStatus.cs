@@ -4,15 +4,29 @@ using UnityEngine;
 
 public class TotalPlanetStatus : MonoBehaviour {
 
+    private const int planet_num = 8;   // 初期設定できる惑星の数
+    private enum MAIN_PARA_ID
+    {
+        normal = 0,
+        tempe,
+        air,
+        grav,
+        mass,
+        MAXID
+    };
+
+    private enum SAB_PARA_ID
+    {
+        water = 0,
+        elec,
+        pois,
+        metal,
+        MAXID
+    };
+
     [SerializeField] private GameObject[] planet;
-    private float[] planetTemp;
 
-    private float totalTemp;
-    private float totalAir;
-    private float totalGravity;
-    private float totalMass;
-
-    private int[] planetStatus = new int[5];
+    private int[] planetStatus = new int[(int)MAIN_PARA_ID.MAXID];
 
 	// Use this for initialization
 	void Start () {
@@ -31,15 +45,17 @@ public class TotalPlanetStatus : MonoBehaviour {
 
     void StatusCheck()
     {
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < planet_num; i++)
         {
-            int id = planet[i].GetComponent<PlanetStatusChange>().GetState();
-            planetStatus[id]++;
+            MAIN_PARA_ID id = (MAIN_PARA_ID)planet[i].GetComponent<PlanetStatusChange>().GetState();
+            planetStatus[(int)id]++;
         }
-        Debug.Log("defalt+" + planetStatus[0]);
-        Debug.Log("temp+" + planetStatus[1]);
-        Debug.Log("air+" + planetStatus[2]);
-        Debug.Log("gra+" + planetStatus[3]);
-        Debug.Log("mass+" + planetStatus[4]);
+
+        string[] paramStr = { "", "温度", "空気", "重力", "質量" };
+
+        for (int i = 0; i < (int)MAIN_PARA_ID.MAXID; i++)
+        {
+            Debug.Log(paramStr[i] + planetStatus[i]);
+        }
     }
 }

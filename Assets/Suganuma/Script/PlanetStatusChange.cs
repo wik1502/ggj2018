@@ -4,9 +4,29 @@ using UnityEngine;
 
 public class PlanetStatusChange : MonoBehaviour {
 
+    private enum MAIN_PARA_ID
+    {
+        normal = 0,
+        tempe,
+        air,
+        grav,
+        mass,
+        MAXID
+    };
+
+    private enum SAB_PARA_ID
+    {
+        water = 0,
+        elec,
+        pois,
+        metal,
+        MAXID
+    };
+
+
     [SerializeField] private Color32[] colerPattern = new Color32[5];
     private GameObject myObject;
-    private int state;
+    private MAIN_PARA_ID state;
 
     [SerializeField] TextMesh myText;
 
@@ -24,40 +44,17 @@ public class PlanetStatusChange : MonoBehaviour {
 
     void ChangeStatus(int val)
     {
-        state++;
-        if(state >= 5)
-        {
-            state = 0;
-        }
-        if(state == 0)
-        {
-            GetComponent<Renderer>().material.color = colerPattern[0];
-            myText.text = ("");
-        }
-        if(state == 1)
-        {
-            GetComponent<Renderer>().material.color = colerPattern[1];
-            myText.text = ("温度");
-        }
-        if(state == 2)
-        {
-            GetComponent<Renderer>().material.color = colerPattern[2];
-            myText.text = ("空気");
-        }
-        if(state == 3)
-        {
-            GetComponent<Renderer>().material.color = colerPattern[3];
-            myText.text = ("重力");
-        }
-        if(state == 4)
-        {
-            GetComponent<Renderer>().material.color = colerPattern[4];
-            myText.text = ("質量");
-        }
+        string[] paramStr = {"", "温度", "空気", "重力", "質量"};
+        state = (MAIN_PARA_ID)((int)(state + 1) % (int)MAIN_PARA_ID.MAXID);
+
+        GetComponent<Renderer>().material.color = colerPattern[(int)state];
+        myText.text = paramStr[(int)state];
+
+ 
     }
 
     public int GetState()
     {
-        return state;
+        return (int)state;
     }
 }
