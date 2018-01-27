@@ -671,7 +671,7 @@ MonoBehaviour:
   flickSpeedfusion: 10
   mainParameterNum: 5
   subParameterNum: 5
-  limitParameter: 9
+  limitParameter: 8
   collisionPowerLight: 3
   lowParameter: 2
   highParameter: 6
