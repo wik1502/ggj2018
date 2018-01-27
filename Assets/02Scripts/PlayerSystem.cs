@@ -160,12 +160,10 @@ public class PlayerSystem : MonoBehaviour {
 
         //温度高　＋　水高　＝　テクスチャ　水＋雲
         //ChangeWaterCloudTexture();
-        
-        ChangeScaleSmall(); //スケール変更
-        
-        ChangeModelGata();  //重力低　＝　モデル　ガタガタ
-        ChangeModelNormal();    //重力中　＝　モデル　ふつう
-        ChangeModelSphere();    //重力高　＝　モデル　球
+
+        ChangeModel();      //重力：モデル変更
+
+        ChangeScaleSmall(); //質量：スケール変更
     }
 
     void ChangeIceTexture()
@@ -185,38 +183,42 @@ public class PlayerSystem : MonoBehaviour {
     {
         //Instantiate(cloudEffect, this.transform.position, this.transform.rotation);
     }
-
-    //質量低　＝　スケール小
-    void ChangeScaleSmall()
+    
+    //重力：モデル変更
+    void ChangeModel()
     {
         if (PlayerSystem.mainParameter[3] <= gameSystem.lowParameter)
-            this.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        {
+            //重力：低＝ガタガタ
+            gravityModelGata.SetActive(true);
+            gravityModelNormal.SetActive(false);
+            gravityModelSphere.SetActive(false);
+        }
         else if (PlayerSystem.mainParameter[3] >= gameSystem.highParameter)
+        {
+            //重力：高＝球
+            gravityModelGata.SetActive(false);
+            gravityModelNormal.SetActive(false);
+            gravityModelSphere.SetActive(true);
+        }
+        else
+        {
+            //重力：中＝通常
+            gravityModelGata.SetActive(false);
+            gravityModelNormal.SetActive(true);
+            gravityModelSphere.SetActive(false);
+        }
+    }
+
+    //質量：スケール変更
+    void ChangeScaleSmall()
+    {
+        if (PlayerSystem.mainParameter[4] <= gameSystem.lowParameter)       //質量：低＝小さい
+            this.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        else if (PlayerSystem.mainParameter[4] >= gameSystem.highParameter) //質量：高＝大きい
             this.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
+        else
+            this.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);      //質量：中＝真ん中
 
-    }
-
-    //重力低　＝　モデル　ガタガタ
-    void ChangeModelGata()
-    {
-        gravityModelGata.SetActive(true);
-        gravityModelNormal.SetActive(false);
-        gravityModelSphere.SetActive(false);
-    }
-
-    //重力中　＝　モデル　ふつう
-    void ChangeModelNormal()
-    {
-        gravityModelGata.SetActive(false);
-        gravityModelNormal.SetActive(true);
-        gravityModelSphere.SetActive(false);
-    }
-
-    //重力高　＝　モデル　球
-    void ChangeModelSphere()
-    {
-        gravityModelGata.SetActive(false);
-        gravityModelNormal.SetActive(false);
-        gravityModelSphere.SetActive(true);
     }
 }

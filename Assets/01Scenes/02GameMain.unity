@@ -466,7 +466,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 24daf5a152db8f8429088b2c75364563, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 24daf5a152db8f8429088b2c75364563, type: 3}
@@ -587,8 +587,8 @@ MonoBehaviour:
   subParameterNum: 5
   limitParameter: 9
   collisionPowerLight: 3
-  lowParameter: 0
-  highParameter: 0
+  lowParameter: 2
+  highParameter: 6
 --- !u!4 &1665592562
 Transform:
   m_ObjectHideFlags: 0
@@ -643,7 +643,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 6d11b4f0a2a0faa48847b92c48342f20, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 6d11b4f0a2a0faa48847b92c48342f20, type: 3}
       propertyPath: m_LocalPosition.x
