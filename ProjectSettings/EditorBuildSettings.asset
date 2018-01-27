@@ -11,3 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/01Scenes/02GameMain.unity
     guid: ec2227f50f81f95428f8ccc95aa29fbf
+  - enabled: 1
+    path: Assets/01Scenes/SceneLoad.unity
+    guid: 8be28e7e0afcbd34288c2b7d44c7d596
+  - enabled: 1
+    path: Assets/01Scenes/SceneSave.unity
+    guid: c5850dcd50b37ae42bce03b0e7d44fb0

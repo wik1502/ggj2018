@@ -43,12 +43,10 @@ public class LoadManagerScript : MonoBehaviour {
 	public void PushLoadButton(int loadNo){					//押されたセーブボタンのスクリプト＆ボタンの番号読み込み
 		Debug.Log (loadNo);									//選択したロードボタンをログで表示
 		for(int i = 1; i < (int)MAIN_PARA_ID.MAXID; i++){
-			storaMain[i - 1] = PlayerPrefs.GetInt ("Data" + loadNo + mainParamName [i]);	//選択したロードデータの読み込み
-			Debug.Log (storaMain [i - 1]);
+			storaMain[i - 1] = PlayerPrefs.GetInt ("Data" + loadNo + mainParamName [i]);
 		}
 		for(int j = 0; j < (int)SAB_PARA_ID.MAXID; j++){
 			storaMain[j] = PlayerPrefs.GetInt ("Data" + loadNo + sabParamName [j]);
-			Debug.Log (storaSab [j]);
 		}
 		PlayerPrefs.DeleteKey(SCENE_NAME);					//SCENE_NAMEの削除
 		PlayerPrefs.SetString (SCENE_NAME, "SceneLoad");	//SCENE_NAMEにSceneLoadを代入
