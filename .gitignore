@@ -35,3 +35,12 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+.vs/ggj2018/v15/Server/sqlite3/storage.ide-wal
+.vs/ggj2018/v15/Server/sqlite3/storage.ide-shm
+.vs/ggj2018/v15/Server/sqlite3/storage.ide
+.vs/ggj2018/v15/Server/sqlite3/db.lock
+Assets/01Scenes/02GameMain.unity.rej
+Assets/02Scripts/MainManuScript.cs.rej.meta
+Assets/02Scripts/MainManuScript.cs.rej
+Assets/02Scripts/MainManuScript.cs.meta
+Assets/01Scenes/02GameMain.unity.rej.meta
