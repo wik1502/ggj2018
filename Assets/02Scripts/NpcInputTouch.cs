@@ -51,4 +51,9 @@ public class NpcInputTouch : MonoBehaviour {
         if (Mathf.Abs((this.transform.position - player.transform.position).magnitude) > 15.0f)  //距離が離れたら(カメラから出るくらい)
             Destroy(this.gameObject);    //NPCを消す
     }
+
+    private void OnDestroy()
+    {
+        GameObject.Find("NpcPop").SendMessage("Repop");
+    }
 }
