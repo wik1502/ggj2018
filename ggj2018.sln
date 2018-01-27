@@ -1,12 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2017
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GGJ2018.CSharp", "GGJ2018.CSharp.csproj", "{66F2ED31-E441-7AC8-6826-445E27DD0D1B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{66F2ED31-E441-7AC8-6826-445E27DD0D1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66F2ED31-E441-7AC8-6826-445E27DD0D1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66F2ED31-E441-7AC8-6826-445E27DD0D1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66F2ED31-E441-7AC8-6826-445E27DD0D1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
