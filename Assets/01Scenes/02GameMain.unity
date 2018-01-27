@@ -531,6 +531,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd488f758db0d8f4c8affa61819123d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  changeMaterial:
+  - {fileID: 2100000, guid: cab7f327a9f784c408da3ba8c063a5b5, type: 2}
+  - {fileID: 2100000, guid: 1ac199ddf5c1a0146b5f6386c5000565, type: 2}
   cloudEffect: {fileID: 0}
   gravityModelGata: {fileID: 1745836447}
   gravityModelNormal: {fileID: 576950285}
