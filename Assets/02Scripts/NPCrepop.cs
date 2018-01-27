@@ -5,6 +5,7 @@ using UnityEngine;
 public class NPCrepop : MonoBehaviour {
 
     [SerializeField] private GameObject npc;　//ポップさせるNPC
+    private Vector3 popPos;
 
     // Use this for initialization
     void Start()
@@ -21,6 +22,7 @@ public class NPCrepop : MonoBehaviour {
     void Repop()
     {
         //ポップ時の音をここで流す
-        Instantiate(npc, transform.position, transform.rotation);
+        popPos = new Vector3(Random.Range(-14, 14), Random.Range(-5, 5), 0);
+        Instantiate(npc, popPos, transform.rotation);
     }
 }
