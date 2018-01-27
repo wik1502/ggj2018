@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//NPCのパラメータのランダム生成だけです。仮で作ったものなので書き換えてもらって大丈夫です。
+//ただし衝突時の加減算で全パラメータ配列を計算しているので、パラメータ数を減らしたりするとそこでエラーが出ます。
+//そこも書き換えちゃうか山本に言ってください。
 public class NpcParameter : MonoBehaviour {
     
     public float[] mainParameter;   //NPCのメインパラメータ
@@ -15,7 +18,6 @@ public class NpcParameter : MonoBehaviour {
         for (int i = 0; i < mainParameter.Length; i++)
         {
             mainParameter[i] = Random.Range(0, GameMainSystem.limitParameterStatic);
-            //Debug.Log("mainParameter" + i + "：" + mainParameter[i]);
         }
         Debug.Log("NPC mainParameter0：" + mainParameter[0]);
 
@@ -23,7 +25,6 @@ public class NpcParameter : MonoBehaviour {
         for (int i = 0; i < subParameter.Length; i++)
         {
             subParameter[i] = Random.Range(0, GameMainSystem.limitParameterStatic);
-            //Debug.Log("subParameter" + i + "：" + subParameter[i]);
         }
         Debug.Log("NPC subParameter0：" + subParameter[0]);
     }

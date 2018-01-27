@@ -21,9 +21,13 @@ public class GameMainSystem : MonoBehaviour {
     public static int subParameterNumStatic;
 
     [Header("パラメーターの上限")]
-    public float limitParameter;
-    public static float limitParameterStatic;
-    
+    public int limitParameter;
+    public static int limitParameterStatic;
+
+    [Header("衝突時の光の強さ")]
+    public int collisionPowerLight;
+    public static int collisionPowerLightStatic;
+
     void Awake () {
         //参照用のstatic変数に代入
         slowFlickMoveStatic = slowFlickMove;
@@ -31,6 +35,7 @@ public class GameMainSystem : MonoBehaviour {
         limitParameterStatic = limitParameter;
         mainParameterNumStatic = mainParameterNum;
         subParameterNumStatic = subParameterNum;
+        collisionPowerLightStatic = collisionPowerLight;
     }
 	
 	void Update () {
