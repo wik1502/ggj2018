@@ -98,4 +98,12 @@ public class PlayerSystem : MonoBehaviour {
         }
         Debug.Log("Sum subParameter0：" + subParameter[0]);
     }
+
+	public void AutoSaveMainPara(int num){
+		PlayerPrefs.SetInt ("Data0MainPara", mainParameter [num]);
+	}
+
+	public void AutoSaveSubPara(int num){
+		PlayerPrefs.SetInt ("Data0SabPara", mainParameter [num]);
+	}
 }
