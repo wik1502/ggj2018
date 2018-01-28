@@ -112,8 +112,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b278b9b2a7d91794e949858cd28212a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainParameter: []
-  subParameter: []
+  colerPattern:
+  - serializedVersion: 2
+    rgba: 16777215
+  - serializedVersion: 2
+    rgba: 255
+  - serializedVersion: 2
+    rgba: 65280
+  - serializedVersion: 2
+    rgba: 16711935
+  - serializedVersion: 2
+    rgba: 65535
+  iconPrefab:
+  - {fileID: 1436555957545030, guid: 303c34e8b6d0ef44c8632915a9ae16f2, type: 2}
+  - {fileID: 1560890511576216, guid: 0b7cc23c23919d04bb155fbac1116a7a, type: 2}
+  - {fileID: 1115718606703598, guid: 77bf1e5ce641a7f4aaccd7e4d2bf6fa1, type: 2}
+  - {fileID: 1947242376013982, guid: 49e67c39d3040134dae2489df00ba42d, type: 2}
+  - {fileID: 1523551093061758, guid: fe0be8cc185c2c44e8529aa00f4cbad4, type: 2}
 --- !u!114 &114604905026398350
 MonoBehaviour:
   m_ObjectHideFlags: 1

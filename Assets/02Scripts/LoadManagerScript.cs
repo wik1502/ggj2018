@@ -52,7 +52,7 @@ public class LoadManagerScript : MonoBehaviour {
 		}
 		PlayerPrefs.DeleteKey(SCENE_NAME);					//SCENE_NAMEの削除
 		PlayerPrefs.SetString (SCENE_NAME, "SceneLoad");	//SCENE_NAMEにSceneLoadを代入
-		SceneManager.LoadScene ("SceneGame");
+		SceneManager.LoadScene ("02GameMain");
 	}
 
 	public void PushBackButton(){							//戻るボタンを押したときのスクリプト

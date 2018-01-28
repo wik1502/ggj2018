@@ -25,6 +25,8 @@ public class NpcParameter : MonoBehaviour {
         MAXID
     };
 
+    [SerializeField] private Color32[] colerPattern = new Color32[5];
+
     [SerializeField] GameObject[] iconPrefab;
     private MAIN_PARA_ID mainParam;
     private SAB_PARA_ID subParam;
@@ -32,8 +34,18 @@ public class NpcParameter : MonoBehaviour {
     //public int[] mainParameter;   //NPCのメインパラメータ
     //public int[] subParameter;    //NPCのサブパラメータ
     GameMainSystem gameSystem;
+    
+    public int GetMainParam()
+    {
+        return (int)mainParam;
+    }
 
-    void Start() {
+    public int GetSubParam()
+    {
+        return (int)subParam;
+    }
+
+    void Start () {
         gameSystem = GameObject.Find("GameSystem").GetComponent<GameMainSystem>();
 /*
         mainParameter = new int[(int)MAIN_PARA_ID.MAXID];   //NPCのメインパラメータの配列確保
@@ -69,10 +81,13 @@ public class NpcParameter : MonoBehaviour {
         Debug.Log((int)mainParam + ":" + (int)subParam);
         Debug.Log(mpStr[(int)mainParam] + ":" + spStr[(int)subParam]);
 
+        gameObject.GetComponent<Renderer>().material.color = colerPattern[(int)mainParam];
 
         GameObject a = Instantiate(iconPrefab[(int)subParam], gameObject.transform);
         a.transform.parent = gameObject.transform;
-        a.transform.position += new Vector3(0.5f, 0.5f, -0.5f);
+        a.transform.localEulerAngles = new Vector3(90, 0, 0);
+        a.transform.localPosition = new Vector3(0, -0, -0);
+        a.transform.localPosition += new Vector3(0.0f, -0.0f, -0.015f);
     }
 
 }
