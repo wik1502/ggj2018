@@ -149,7 +149,7 @@ public class PlayerSystem : MonoBehaviour {
 
     void ChangePlayerState()
     {
-        ChangeWaterMaterial();  //温度・水：マテリアル・エフェクト変更
+        ChangeWaterMaterial();  //温度・水・毒：マテリアル・エフェクト変更
 
         ChangeElectric();       //空気・電気：雷エフェクト発生
 
@@ -160,6 +160,7 @@ public class PlayerSystem : MonoBehaviour {
         ChangeMetalMaterial();  //金属：マテリアル変更
     }
 
+    //温度・水・毒：マテリアル・エフェクト変更
     void ChangeWaterMaterial()
     {
         if (subParameter[(int)SAB_PARA_ID.water] >= gameSystem.highParameter)       //水が多いとき
@@ -168,15 +169,29 @@ public class PlayerSystem : MonoBehaviour {
             {
                 for (int i = 0; i < gravityModel.Length; i++)
                     gravityModel[i].GetComponent<Renderer>().material = changeMaterial[0];     //すべてのモデルのマテリアルを氷に変更
+
+                if (subParameter[(int)SAB_PARA_ID.pois] >= gameSystem.highParameter)    //毒が多いとき
+                {
+                    for (int i = 0; i < gravityModel.Length; i++)
+                        gravityModel[i].GetComponent<Renderer>().material.color = new Color(0.5f, 0.0f, 1.0f);     //すべてのモデルのマテリアルを紫色に変更
+                }
+
             }
             else
             {
+                //温度が高いとき
                 for (int i = 0; i < gravityModel.Length; i++)
                     gravityModel[i].GetComponent<Renderer>().material = changeMaterial[1];     //すべてのモデルのマテリアルを水に変更
                 if (mainParameter[(int)MAIN_PARA_ID.tempe] >= gameSystem.highParameter)
                 {
                     if (cloud == null)
                         cloud = Instantiate(cloudEffect, this.transform.position, this.transform.rotation); //雲のエフェクトを再生
+                }
+
+                if (subParameter[(int)SAB_PARA_ID.pois] >= gameSystem.highParameter)    //毒が多いとき
+                {
+                    for (int i = 0; i < gravityModel.Length; i++)
+                        gravityModel[i].GetComponent<Renderer>().material.color = new Color(1.0f, 0.0f, 0.2f);     //すべてのモデルのマテリアルを紫色に変更
                 }
             }
         }
@@ -187,7 +202,7 @@ public class PlayerSystem : MonoBehaviour {
         }
 
         //水が少なくなるか、温度が低くなって、雲があったら、雲を消す
-        if ((subParameter[(int)SAB_PARA_ID.water] <= gameSystem.lowParameter || mainParameter[(int)MAIN_PARA_ID.tempe] < gameSystem.highParameter) && cloud != null)
+        if ((subParameter[(int)SAB_PARA_ID.water] < gameSystem.highParameter || mainParameter[(int)MAIN_PARA_ID.tempe] < gameSystem.highParameter) && cloud != null)
         {
             if (cloud != null)
             {
@@ -195,8 +210,16 @@ public class PlayerSystem : MonoBehaviour {
                 cloud = null;
             }
         }
+
+        //毒が低くなるか、水が少なくなったら、毒を消す
+        if (subParameter[(int)SAB_PARA_ID.pois] <= gameSystem.lowParameter || subParameter[(int)SAB_PARA_ID.water] <= gameSystem.lowParameter)
+        {
+            for (int i = 0; i < gravityModel.Length; i++)
+                gravityModel[i].GetComponent<Renderer>().material.color = new Color(1.0f, 1.0f, 1.0f);     //すべてのモデルのマテリアルを通常の色に変更
+        }
     }
 
+    //空気・電気：エフェクト
     void ChangeElectric()
     {
         Debug.Log("Elec:" + subParameter[(int)SAB_PARA_ID.elec] + ", Air:" + mainParameter[(int)MAIN_PARA_ID.air]);
