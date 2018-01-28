@@ -86,53 +86,63 @@ public class PlayerSystem : MonoBehaviour {
     }
     
 
-    /*  融合(加算)処理  */
-    void addParameter(int npcMainPara, int npcSubPara)
-    {
-        //メインパラメータの加算
-        mainParameter[npcMainPara] = Mathf.Min(mainParameter[npcMainPara] + 1, gameSystem.limitParameter);
-        Debug.Log("Add mainParameter"+ npcMainPara + "：" + mainParameter[npcMainPara]);
-        
-        //サブパラメータの加算
-        subParameter[npcSubPara] = Mathf.Min(subParameter[npcSubPara] + 1, gameSystem.limitParameter);
-        Debug.Log("Add subParameter" + npcSubPara + "：" + subParameter[npcSubPara]);
+	/*  融合(加算)処理  */
+	void addParameter(int npcMainPara, int npcSubPara)
+	{
+		//メインパラメータの加算
+		mainParameter[npcMainPara] = Mathf.Min(mainParameter[npcMainPara] + 1, gameSystem.limitParameter);
+		//Debug.Log("Add mainParameter"+ npcMainPara + "：" + mainParameter[npcMainPara]);
+		AutoSaveMainPara (npcMainPara);
+		//サブパラメータの加算
+		subParameter[npcSubPara] = Mathf.Min(subParameter[npcSubPara] + 1, gameSystem.limitParameter);
+		Debug.Log("Add subParameter" + npcSubPara + "：" + subParameter[npcSubPara]);
+		AutoSaveSubPara (npcSubPara);
 
-        //デバッグ用
-        //subParameter[3] = 6;    //金属に変更
-    }
+		//デバッグ用
+		//subParameter[3] = 6;    //金属に変更
+	}
 
-    /*  貫通(減算)処理  */
-    void cutParameter(int npcMainPara, int npcSubPara)
-    {
-        //メインパラメータの減算
-        mainParameter[npcMainPara] = Mathf.Max(mainParameter[npcMainPara] - 1, 0);
-        Debug.Log("Cut mainParameter" + npcMainPara + "：" + mainParameter[npcMainPara]);
-        
-        //サブパラメータの減算
-        subParameter[npcSubPara] = Mathf.Max(subParameter[npcSubPara] - 1, 0);
-        Debug.Log("Cut subParameter" + npcSubPara + "：" + subParameter[npcSubPara]);
-    }
+	/*  貫通(減算)処理  */
+	void cutParameter(int npcMainPara, int npcSubPara)
+	{
+		//メインパラメータの減算
+		mainParameter[npcMainPara] = Mathf.Max(mainParameter[npcMainPara] - 1, 0);
+		Debug.Log("Cut mainParameter" + npcMainPara + "：" + mainParameter[npcMainPara]);
+		AutoSaveMainPara (npcMainPara);
 
-    void ChangeStateCount()
-    {
-        if (countStart)
-        {
-            changeWaitCount += Time.deltaTime;
-            if (changeWaitCount > 0.5f)
-            {
-                ChangePlayerState();
-                changeWaitCount = 0;
-                countStart = false;
-            }
-        }
-    }
+		//サブパラメータの減算
+		subParameter[npcSubPara] = Mathf.Max(subParameter[npcSubPara] - 1, 0);
+		Debug.Log("Cut subParameter" + npcSubPara + "：" + subParameter[npcSubPara]);
+		AutoSaveSubPara (npcSubPara);
+	}
+
+	void ChangeStateCount()
+	{
+		if (countStart)
+		{
+			changeWaitCount += Time.deltaTime;
+			if (changeWaitCount > 0.5f)
+			{
+				ChangePlayerState();
+				changeWaitCount = 0;
+				countStart = false;
+			}
+		}
+	}
 
 	public void AutoSaveMainPara(int num){
-		PlayerPrefs.SetInt ("Data0MainPara", mainParameter [num]);
+		string[] mainParamName = {"defalt","tempe", "air","grav","mass"};
+		Debug.Log ("num:"+num);
+		PlayerPrefs.SetInt ("Data0MainPara"+mainParamName[num], mainParameter [num]);
+		PlayerPrefs.Save ();
+		Debug.Log ("MainParamSave:" + PlayerPrefs.GetInt ("Data0MainPara" + mainParamName [num]));
 	}
 
 	public void AutoSaveSubPara(int num){
-		PlayerPrefs.SetInt ("Data0SabPara", mainParameter [num]);
+		string[] subParamName = {"water", "elec","pois","metal"};
+		PlayerPrefs.SetInt ("Data0SubPara"+subParamName[num], subParameter [num]);
+		PlayerPrefs.Save ();
+		Debug.Log ("SubParamSave:" + PlayerPrefs.GetInt ("Data0SubPara" + subParamName [num]));
 	}
 
     void SetParameterInit()

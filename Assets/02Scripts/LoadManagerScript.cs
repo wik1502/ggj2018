@@ -9,9 +9,9 @@ public class LoadManagerScript : MonoBehaviour {
 	public static string SCENE_NAME = "SceneName";
 	string sceneName;
 	int[] storaMain = new int[5];
-	int[] storaSab = new int[5];
+	int[] storaSub = new int[5];
 	string[] mainParamName = {"defalt","tempe", "air","grav","mass"};
-	string[] sabParamName = {"water", "elec","pois","metal"};
+	string[] subParamName = {"water", "elec","pois","metal"};
 
 	private enum MAIN_PARA_ID {
 		normal = 0,
@@ -22,13 +22,14 @@ public class LoadManagerScript : MonoBehaviour {
 		MAXID
 	};
 
-	private enum SAB_PARA_ID {
+	private enum SUB_PARA_ID {
 		water = 0,
 		elec,
 		pois,
 		metal,
 		MAXID
 	};
+	private int i;
 
 	// Use this for initialization
 	void Start () {
@@ -42,13 +43,13 @@ public class LoadManagerScript : MonoBehaviour {
 
 	public void PushLoadButton(int loadNo){					//押されたセーブボタンのスクリプト＆ボタンの番号読み込み
 		Debug.Log (loadNo);									//選択したロードボタンをログで表示
-		for(int i = 1; i < (int)MAIN_PARA_ID.MAXID; i++){
-			storaMain[i - 1] = PlayerPrefs.GetInt ("Data" + loadNo + mainParamName [i]);	//選択したロードデータの読み込み
-			Debug.Log (storaMain [i - 1]);
+		for(i = 0; i < (int)MAIN_PARA_ID.MAXID; i++){
+			storaMain[i] = PlayerPrefs.GetInt ("Data" + loadNo + "MainPara" + mainParamName [i]);	//選択したロードデータの読み込み
+			Debug.Log ("storaMain"+i+":"+storaMain [i]);
 		}
-		for(int j = 0; j < (int)SAB_PARA_ID.MAXID; j++){
-			storaMain[j] = PlayerPrefs.GetInt ("Data" + loadNo + sabParamName [j]);
-			Debug.Log (storaSab [j]);
+		for(i = 0; i < (int)SUB_PARA_ID.MAXID; i++){
+			storaSub[i] = PlayerPrefs.GetInt ("Data" + loadNo + "SubPara" + subParamName [i]);
+			Debug.Log ("storaSub"+i+":"+storaSub [i]);
 		}
 		PlayerPrefs.DeleteKey(SCENE_NAME);					//SCENE_NAMEの削除
 		PlayerPrefs.SetString (SCENE_NAME, "SceneLoad");	//SCENE_NAMEにSceneLoadを代入
