@@ -21,7 +21,8 @@ public class NpcInputTouch : MonoBehaviour {
 	
 	void Update () {
         //フリック時、算出ベクトルで移動
-        this.gameObject.transform.Translate(moveVector * gameSystem.slowFlickMove * Time.deltaTime);
+        if (!PlayerCollision.triggerEnter)
+            this.gameObject.transform.Translate(moveVector * gameSystem.slowFlickMove * Time.deltaTime);
 
         //離れたNPCを消す
         DeleteNpc();
