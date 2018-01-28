@@ -13,7 +13,7 @@ public class GameMainSystem : MonoBehaviour {
     [Header("0normal、1温度、2空気、3重力、4質量")]
     public int mainParameterNum;
 
-    [Header("0normal、1水、2電気、3毒、4金属")]
+    [Header("0水、1電気、2毒、3金属")]
     public int subParameterNum;
 
     [Header("パラメーターの上限")]

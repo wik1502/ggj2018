@@ -1475,6 +1475,8 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 302d627c5d7e3f746af803a047c2c4ea, type: 2}
   cloudEffect: {fileID: 1852901447932198, guid: 95372dbffba2528499319394004b3ee1,
     type: 2}
+  ElectricEffect: {fileID: 1081804480472432, guid: e1572bde5307646438e35384b177f1af,
+    type: 2}
   gravityModel:
   - {fileID: 780481049}
   - {fileID: 1066284027}
