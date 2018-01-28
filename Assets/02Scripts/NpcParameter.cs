@@ -85,7 +85,6 @@ public class NpcParameter : MonoBehaviour {
 
         GameObject a = Instantiate(iconPrefab[(int)subParam], gameObject.transform);
         a.transform.parent = gameObject.transform;
-        a.transform.localEulerAngles = new Vector3(90, 0, 0);
         a.transform.localPosition = new Vector3(0, -0, -0);
         a.transform.localPosition += new Vector3(0.0f, -0.0f, -0.015f);
     }

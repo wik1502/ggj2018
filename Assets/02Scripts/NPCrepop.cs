@@ -63,7 +63,7 @@ public class NPCrepop : MonoBehaviour {
     void Repop()
     {
         //ポップ時の音をここで流す
-        popPos = new Vector3((Random.Range(0, 3) + 5) * (Random.Range(0, 2) * 2 - 1), (Random.Range(0, 2) + 1) * (Random.Range(0, 2) * 2 - 1), 0);
+        popPos = new Vector3((Random.Range(0, 3) + 6) * (Random.Range(0, 2) * 2 - 1), (Random.Range(0, 2) + 1) * (Random.Range(0, 2) * 2 - 1), 0);
         if (popPos.x >= 9 && popPos.y >= 4.5)
         {
             popPos.y = 3;

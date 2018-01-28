@@ -15,6 +15,7 @@ public class NpcInputTouch : MonoBehaviour {
     void Start () {
         gameSystem = GameObject.Find("GameSystem").GetComponent<GameMainSystem>();
         deadTrigger = false;                //NPCは死んでるか初期化
+        moveVector = new Vector3(0, 0, 0);
         player = GameObject.Find("Player"); //プレイヤーオブジェクトの取得
     }
 	

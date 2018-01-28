@@ -148,8 +148,8 @@ MonoBehaviour:
   - serializedVersion: 2
     rgba: 65535
   iconPrefab:
+  - {fileID: 1642093248836976, guid: a12b1b8797fb58d408ab6b381b54f94e, type: 2}
   - {fileID: 1981320040871412, guid: c365a40d6dd5f1c46921ce45d1cf3da6, type: 2}
-  - {fileID: 1981320040871412, guid: c365a40d6dd5f1c46921ce45d1cf3da6, type: 2}
+  - {fileID: 1694987413358082, guid: 32ae2193e9d94004cab8ac1319397d0c, type: 2}
   - {fileID: 1862163145718428, guid: fc0a145218360b14a87d23820a0f83cb, type: 2}
-  - {fileID: 1862163145718428, guid: fc0a145218360b14a87d23820a0f83cb, type: 2}
-  - {fileID: 1862163145718428, guid: fc0a145218360b14a87d23820a0f83cb, type: 2}
+  - {fileID: 1190684727723538, guid: 02f9abd20ebda13479446a2ed02c27de, type: 2}
