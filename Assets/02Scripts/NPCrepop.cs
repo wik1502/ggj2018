@@ -115,7 +115,7 @@ public class NPCrepop : MonoBehaviour {
                 break;
             default:
                 mParam = Random.Range(0, 5);
-                sParam = Random.Range(0, 5);
+                sParam = Random.Range(0, 3);
                 break;
         }
 

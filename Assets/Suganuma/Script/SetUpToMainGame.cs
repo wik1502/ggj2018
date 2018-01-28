@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SetUpToMainGame : MonoBehaviour {
 
     private bool countDown;
-    private float count = 5;
+    private float count = 2;
+
+    [SerializeField] private Image siroImage;
+    private float alfa;
 
 	// Use this for initialization
 	void Start () {
@@ -18,6 +22,8 @@ public class SetUpToMainGame : MonoBehaviour {
 		if(countDown == true)
         {
             count -= Time.deltaTime;
+            siroImage.color = new Color(siroImage.color.r, siroImage.color.g, siroImage.color.b,alfa);
+            alfa++;
         }
         if(count <= 0)
         {
