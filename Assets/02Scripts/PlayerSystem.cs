@@ -165,6 +165,7 @@ public class PlayerSystem : MonoBehaviour {
 
             Debug.Log(mainParameter[i]);
         }
+		ChangePlayerState ();
     }
 
     void ChangePlayerState()
