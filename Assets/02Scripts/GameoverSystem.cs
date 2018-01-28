@@ -32,6 +32,8 @@ public class GameoverSystem : MonoBehaviour {
         sunEffects = Instantiate(sunEffectsPre, new Vector3(mainCamera.transform.position.x - 70.0f, mainCamera.transform.position.y, -4.2f), Quaternion.identity);
         sunEffects.transform.Rotate(-80.0f, transform.rotation.y, transform.rotation.z);
         gameoverFlg = true;
+        SoundManager.Instance.PlaySE(0);
+
     }
 
     void gameoverAnim()
