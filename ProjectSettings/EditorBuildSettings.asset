@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/01Scenes/SceneTitle.unity
+    guid: 2b800d1891b3a0146b5b0215c18bf8e4
+  - enabled: 1
     path: Assets/Suganuma/Scene/SetUpScene.unity
     guid: a78e6c1840e766643bd77211bd75c338
   - enabled: 1

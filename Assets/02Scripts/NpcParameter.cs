@@ -76,7 +76,7 @@ public class NpcParameter : MonoBehaviour {
         subParam = (SAB_PARA_ID)sParam;
 
         string[] mpStr = { "normal", "tempe", "air", "grav", "mass" };
-        string[] spStr = { "water", "elec", "pois", "metal", "subnormal???" };
+        string[] spStr = { "water", "elec", "pois", "metal"}; //,"subnormal???" };
 
         Debug.Log((int)mainParam + ":" + (int)subParam);
         Debug.Log(mpStr[(int)mainParam] + ":" + spStr[(int)subParam]);
