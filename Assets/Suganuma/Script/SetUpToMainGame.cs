@@ -21,6 +21,7 @@ public class SetUpToMainGame : MonoBehaviour {
         }
         if(count <= 0)
         {
+            SoundManager.Instance.PlaySE(5);    //効果音：作成
             SceneManager.LoadScene("02GameMain");
             Debug.Log("idou");
         }
