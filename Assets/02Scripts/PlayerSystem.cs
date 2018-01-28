@@ -95,6 +95,7 @@ public class PlayerSystem : MonoBehaviour {
         
         //サブパラメータの加算
         subParameter[npcSubPara] = Mathf.Min(subParameter[npcSubPara] + 1, gameSystem.limitParameter);
+        Debug.Log("Add subParameter" + npcSubPara + "：" + subParameter[npcSubPara]);
 
         //デバッグ用
         //subParameter[3] = 6;    //金属に変更
@@ -109,6 +110,7 @@ public class PlayerSystem : MonoBehaviour {
         
         //サブパラメータの減算
         subParameter[npcSubPara] = Mathf.Max(subParameter[npcSubPara] - 1, 0);
+        Debug.Log("Cut subParameter" + npcSubPara + "：" + subParameter[npcSubPara]);
     }
 
     void ChangeStateCount()
@@ -173,7 +175,8 @@ public class PlayerSystem : MonoBehaviour {
                     gravityModel[i].GetComponent<Renderer>().material = changeMaterial[1];     //すべてのモデルのマテリアルを水に変更
                 if (mainParameter[(int)MAIN_PARA_ID.tempe] >= gameSystem.highParameter)
                 {
-                    cloud = Instantiate(cloudEffect, this.transform.position, this.transform.rotation); //雲のエフェクトを再生
+                    if (cloud == null)
+                        cloud = Instantiate(cloudEffect, this.transform.position, this.transform.rotation); //雲のエフェクトを再生
                 }
             }
         }
@@ -186,7 +189,11 @@ public class PlayerSystem : MonoBehaviour {
         //水が少なくなるか、温度が低くなって、雲があったら、雲を消す
         if ((subParameter[(int)SAB_PARA_ID.water] <= gameSystem.lowParameter || mainParameter[(int)MAIN_PARA_ID.tempe] < gameSystem.highParameter) && cloud != null)
         {
-            Destroy(cloud, 0.5f);
+            if (cloud != null)
+            {
+                Destroy(cloud, 0.5f);
+                cloud = null;
+            }
         }
     }
 
