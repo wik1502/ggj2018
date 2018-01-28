@@ -62,7 +62,7 @@ public class SaveManagerScript : MonoBehaviour {
 			Debug.Log(PlayerPrefs.GetInt ("Data" + saveNo + "MainPara" + mainParamName[i]));
 		}
 		for(i = 0; i < (int)SUB_PARA_ID.MAXID; i++){
-			PlayerPrefs.SetInt ("Data" + saveNo + "SubPara" + mainParamName[i], subPara[i]);		//サブパラメータを保管
+			PlayerPrefs.SetInt ("Data" + saveNo + "SubPara" + subParamName[i], subPara[i]);		//サブパラメータを保管
 			PlayerPrefs.Save();
 			Debug.Log(PlayerPrefs.GetInt ("Data" + saveNo + "SubPara" + subParamName[i]));
 		}
