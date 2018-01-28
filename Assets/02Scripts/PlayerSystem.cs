@@ -25,6 +25,7 @@ public class PlayerSystem : MonoBehaviour {
 
     public Material[] changeMaterial;
     public GameObject cloudEffect;
+    public GameObject ElectricEffect;
     public GameObject[] gravityModel;
 
     int[] mainParameter;  //プレイヤーのメインパラメータ
@@ -37,6 +38,7 @@ public class PlayerSystem : MonoBehaviour {
     NpcParameter npcParameter;          //接触NPCのパラメータ
     GameMainSystem gameSystem;
     GameObject cloud;
+    GameObject electric;
     
 	void Start () {
         gameSystem = GameObject.Find("GameSystem").GetComponent<GameMainSystem>();
@@ -147,6 +149,8 @@ public class PlayerSystem : MonoBehaviour {
     {
         ChangeWaterMaterial();  //温度・水：マテリアル・エフェクト変更
 
+        ChangeElectric();       //空気・電気：雷エフェクト発生
+
         ChangeModel();          //重力：モデル変更
 
         ChangeScaleSmall();     //質量：スケール変更
@@ -185,7 +189,27 @@ public class PlayerSystem : MonoBehaviour {
             Destroy(cloud, 0.5f);
         }
     }
-    
+
+    void ChangeElectric()
+    {
+        Debug.Log("Elec:" + subParameter[(int)SAB_PARA_ID.elec] + ", Air:" + mainParameter[(int)MAIN_PARA_ID.air]);
+        if (mainParameter[(int)MAIN_PARA_ID.air] >= gameSystem.highParameter && subParameter[(int)SAB_PARA_ID.elec] >= gameSystem.highParameter)
+        {
+            //空気が高く、電気が高いとき、雷を発生させる
+            if (electric == null)
+            {
+                electric = Instantiate(ElectricEffect, this.transform.position, this.transform.rotation);
+            }
+        } else　{
+            if (electric != null)
+            {
+                // 雷を消す
+                Destroy(electric, 0.5f);    
+                electric = null;
+            }
+        }
+    }
+
     //重力：モデル変更
     void ChangeModel()
     {
