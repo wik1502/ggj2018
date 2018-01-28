@@ -28,8 +28,11 @@ public class TitleManagerScript : MonoBehaviour {
 
 	public void StartButton(){									//初めから
 		PlayerPrefs.SetString (SCENE_NAME, "SceneTitle");		//SCENE_NAMEに"SceneTitle"を代入
-		PlayerPrefs.Save ();									//記録
-		SceneManager.LoadScene("SetUpScene");
+		PlayerPrefs.Save ();                                    //記録
+        SoundManager.Instance.StopBGM();
+        SoundManager.Instance.PlayBGM(1);                   
+        SceneManager.LoadScene("SetUpScene");
+
 	}
 
 	public void LoadButton(){									//続きから
