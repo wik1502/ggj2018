@@ -22,6 +22,7 @@ public class ObjectClick : MonoBehaviour {
             {
                 if (hit.collider.gameObject.tag == "Planet")
                 {
+                    SoundManager.Instance.PlaySE(4);        //タップ効果音
                     hit.collider.gameObject.SendMessage("ChangeStatus",1);
                 }
             }
