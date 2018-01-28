@@ -23,7 +23,7 @@ public class NpcInputTouch : MonoBehaviour {
 	
 	void Update () {
         //フリック時、算出ベクトルで移動
-        if (!dragging || deadTrigger)
+        if ((!dragging || deadTrigger) && gameSystem != null)
             this.gameObject.transform.Translate(moveVector * gameSystem.slowFlickMove * Time.deltaTime);
         
         //離れたNPCを消す
@@ -58,8 +58,10 @@ public class NpcInputTouch : MonoBehaviour {
     //離れたNPCを消す
     void DeleteNpc()
     {
-        if (Mathf.Abs((this.transform.position - player.transform.position).magnitude) > 15.0f)  //距離が離れたら(カメラから出るくらい)
-            Destroy(this.gameObject);    //NPCを消す
+        if (player != null) {
+            if (Mathf.Abs((this.transform.position - player.transform.position).magnitude) > 15.0f)  //距離が離れたら(カメラから出るくらい)
+                Destroy(this.gameObject);    //NPCを消す
+        }
     }
 
     private void OnDestroy()
