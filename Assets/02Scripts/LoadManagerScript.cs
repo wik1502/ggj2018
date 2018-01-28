@@ -8,7 +8,7 @@ using System;
 public class LoadManagerScript : MonoBehaviour {
 	public static string SCENE_NAME = "SceneName";
 	string sceneName;
-	int[] storaMain = new int[5];
+	int[] storaMain = new int[6];
 	int[] storaSub = new int[5];
 	string[] mainParamName = {"defalt","tempe", "air","grav","mass"};
 	string[] subParamName = {"water", "elec","pois","metal"};
@@ -43,16 +43,20 @@ public class LoadManagerScript : MonoBehaviour {
 
 	public void PushLoadButton(int loadNo){					//押されたセーブボタンのスクリプト＆ボタンの番号読み込み
 		Debug.Log (loadNo);									//選択したロードボタンをログで表示
+		/*
 		for(i = 0; i < (int)MAIN_PARA_ID.MAXID; i++){
 			storaMain[i] = PlayerPrefs.GetInt ("Data" + loadNo + "MainPara" + mainParamName [i]);	//選択したロードデータの読み込み
 			Debug.Log ("storaMain"+i+":"+storaMain [i]);
+			PlayerSystem playerSystem = GetComponent<PlayerSystem> ();
+			playerSystem.LoadMainValue (loadNo);
 		}
 		for(i = 0; i < (int)SUB_PARA_ID.MAXID; i++){
 			storaSub[i] = PlayerPrefs.GetInt ("Data" + loadNo + "SubPara" + subParamName [i]);
 			Debug.Log ("storaSub"+i+":"+storaSub [i]);
-		}
+			PlayerSystem.LoadSubValue (loadNo);
+		}*/
 		PlayerPrefs.DeleteKey(SCENE_NAME);					//SCENE_NAMEの削除
-		PlayerPrefs.SetString (SCENE_NAME, "SceneLoad");	//SCENE_NAMEにSceneLoadを代入
+		PlayerPrefs.SetInt ("LoadNo", loadNo);				//ロード番号の格納
 		SceneManager.LoadScene ("02GameMain");
 	}
 

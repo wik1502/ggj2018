@@ -24,6 +24,10 @@ public class TitleManagerScript : MonoBehaviour {
 			//セーブデータがあった場合
 			loadButton.SetActive(true);
 		}*/
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			Debug.Log ("a");
+			Application.Quit ();
+		}
 	}
 
 	public void StartButton(){									//初めから

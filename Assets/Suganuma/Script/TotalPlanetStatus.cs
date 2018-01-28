@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TotalPlanetStatus : MonoBehaviour {
+	string[] mainParamName = {"defalt","tempe", "air","grav","mass"};
+	string[] subParamName = {"water", "elec","pois","metal"};
 
     private const int planet_num = 8;   // 初期設定できる惑星の数
     private enum MAIN_PARA_ID
@@ -30,7 +32,10 @@ public class TotalPlanetStatus : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        
+		for(int i = 0; i < 5; i++){
+			PlayerPrefs.DeleteKey ("Data0MainPara" + mainParamName [i]);
+			PlayerPrefs.DeleteKey ("Data0MainPara" + subParamName [i]);
+		}
     }
 
     private void Awake()
@@ -51,11 +56,10 @@ public class TotalPlanetStatus : MonoBehaviour {
             planetStatus[(int)id]++;
         }
 
-        string[] paramStr = { "norm", "temp", "air", "grav", "mess" };
 
-        for (int i = 1; i < (int)MAIN_PARA_ID.MAXID; i++)
+        for (int i = 0; i < (int)MAIN_PARA_ID.MAXID; i++)
         {
-			PlayerPrefs.SetInt("prottype"+paramStr[i],planetStatus[i]);
+			PlayerPrefs.SetInt("Data0MainPara"+mainParamName[i],planetStatus[i]);
         }
     }
 }
