@@ -143,7 +143,6 @@ public class PlayerSystem : MonoBehaviour {
 	}
 
 	public void AutoSaveMainPara(int num){
-		string[] mainParamName = {"defalt","tempe", "air","grav","mass"};
 		Debug.Log ("num:"+num);
 		PlayerPrefs.SetInt ("Data0MainPara"+mainParamName[num], mainParameter [num]);
 		PlayerPrefs.Save ();
@@ -151,7 +150,6 @@ public class PlayerSystem : MonoBehaviour {
 	}
 
 	public void AutoSaveSubPara(int num){
-		string[] subParamName = {"water", "elec","pois","metal"};
 		PlayerPrefs.SetInt ("Data0SubPara"+subParamName[num], subParameter [num]);
 		PlayerPrefs.Save ();
 		Debug.Log ("SubParamSave:" + PlayerPrefs.GetInt ("Data0SubPara" + subParamName [num]));
@@ -163,7 +161,7 @@ public class PlayerSystem : MonoBehaviour {
         
         for (int i = (int)MAIN_PARA_ID.tempe; i < (int)MAIN_PARA_ID.MAXID; i++)
         {
-            mainParameter[i] = PlayerPrefs.GetInt("prottype" + paramStr[i]);
+            mainParameter[i] = PlayerPrefs.GetInt("Data0MainPara" + mainParamName[i]);
 
             Debug.Log(mainParameter[i]);
         }
