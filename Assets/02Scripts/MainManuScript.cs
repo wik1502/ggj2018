@@ -59,4 +59,9 @@ public class MainManuScript : MonoBehaviour {
 		PlayerPrefs.Save ();									//記録
 		SceneManager.LoadScene ("SceneLoad");					//ロードシーンに移る
 	}
+
+    public void TitleButton()
+    {
+        SceneManager.LoadScene("SceneTitle");                    //ロードシーンに移る
+    }
 }
