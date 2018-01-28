@@ -28,8 +28,8 @@ public class PlayerSystem : MonoBehaviour {
     public GameObject ElectricEffect;
     public GameObject[] gravityModel;
 
-    int[] mainParameter;  //プレイヤーのメインパラメータ
-    int[] subParameter;                 //プレイヤーのサブパラメータ
+    public static int[] mainParameter;  //プレイヤーのメインパラメータ
+    public static int[] subParameter;                 //プレイヤーのサブパラメータ
     float changeWaitCount;
     bool countStart;
 
@@ -39,6 +39,9 @@ public class PlayerSystem : MonoBehaviour {
     GameMainSystem gameSystem;
     GameObject cloud;
     GameObject electric;
+
+	string[] mainParamName = {"defalt","tempe", "air","grav","mass"};
+	string[] subParamName = {"water", "elec","pois","metal"};
     
 	void Start () {
         gameSystem = GameObject.Find("GameSystem").GetComponent<GameMainSystem>();
@@ -48,6 +51,15 @@ public class PlayerSystem : MonoBehaviour {
         SetParameterInit();                                         //初期パラメータの代入
         changeWaitCount = 0;                                        //演出用の待ち時間カウント
         ChangePlayerState();                                        //初期状態の表現
+		if(PlayerPrefs.HasKey("LoadNo")==true){
+			int loadNo = PlayerPrefs.GetInt ("LoadNo");
+			for(int i = 0; i < 5; i++){
+				mainParameter[i] = PlayerPrefs.GetInt("Data" + loadNo + "MainPara" + mainParamName [i]);
+			}
+			for(int i = 0; i < 4; i++){
+				subParameter[i] = PlayerPrefs.GetInt("Data" + loadNo + "SubPara" + subParamName [i]);
+			}
+		}
     }
 	
 	void Update () {
