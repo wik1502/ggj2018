@@ -11,25 +11,28 @@ public class NpcInputTouch : MonoBehaviour {
     Vector3 moveVector;         //フリック時に動くベクトル
     public static Vector3 moveVectorStatic; //moveVectorの外部参照用
     GameMainSystem gameSystem;
+    bool dragging;
 
     void Start () {
         gameSystem = GameObject.Find("GameSystem").GetComponent<GameMainSystem>();
         deadTrigger = false;                //NPCは死んでるか初期化
         moveVector = new Vector3(0, 0, 0);
         player = GameObject.Find("Player"); //プレイヤーオブジェクトの取得
+        dragging = false;
     }
 	
 	void Update () {
         //フリック時、算出ベクトルで移動
-        if (!Input.GetMouseButtonDown(0))
+        if (!dragging || deadTrigger)
             this.gameObject.transform.Translate(moveVector * gameSystem.slowFlickMove * Time.deltaTime);
-
+        
         //離れたNPCを消す
         DeleteNpc();
     }
     
     void OnMouseDrag()  //マウスドラッグ中の処理
     {
+        dragging = true;
         if (!deadTrigger)   //死ぬまでの猶予期間でないなら実行
         {
             starPositionBefore = this.transform.position;           //算出前(1フレーム前)の座標
@@ -45,6 +48,11 @@ public class NpcInputTouch : MonoBehaviour {
             moveVector = starPositionAfter - starPositionBefore;    //フリック時のベクトルの算出
             moveVectorStatic = moveVector;                          //参照用のStatic変数に値を代入
         }
+    }
+
+    void OnMouseUp()
+    {
+        dragging = false;
     }
 
     //離れたNPCを消す
