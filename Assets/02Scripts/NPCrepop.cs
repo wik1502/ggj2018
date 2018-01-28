@@ -121,6 +121,6 @@ public class NPCrepop : MonoBehaviour {
 
         debugkey = -1;
         generatedNPC.GetComponent<NpcParameter>().SetParam(mParam, sParam);
-        SoundManager.Instance.PlaySE(1);                        //1=決定音
+        SoundManager.Instance.PlaySE(6);                        //1=決定音
     }
 }
