@@ -294,6 +294,12 @@ public class PlayerSystem : MonoBehaviour {
         {
             for (int i = 0; i < gravityModel.Length; i++)
                 gravityModel[i].GetComponent<Renderer>().material = changeMaterial[3];  //すべてのモデルのマテリアルを金属に変更
+
+            if (cloud != null)
+            {
+                Destroy(cloud, 0.5f);
+                cloud = null;
+            }
         }
     }
 }
