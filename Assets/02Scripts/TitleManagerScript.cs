@@ -15,15 +15,15 @@ public class TitleManagerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (PlayerPrefs.HasKey ("data1tempe") == false && PlayerPrefs.HasKey ("data2tempe") == false && 
-			PlayerPrefs.HasKey ("data3tempe") == false && PlayerPrefs.HasKey ("data4tempe") == false && 
-			PlayerPrefs.HasKey ("data5tempe") == false) {			//セーブデータがあるかどうかの確認
+		/*if (PlayerPrefs.GetInt ("data1tempe") == '\0' && PlayerPrefs.GetInt ("data2tempe") == '\0' && 
+			PlayerPrefs.GetInt ("data3tempe") == '\0' && PlayerPrefs.GetInt ("data4tempe") == '\0' && 
+			PlayerPrefs.GetInt ("data5tempe") == '\0') {			//セーブデータがあるかどうかの確認
 			//セーブデータが１つもない場合
 			loadButton.SetActive(false);
 		} else {
 			//セーブデータがあった場合
 			loadButton.SetActive(true);
-		}
+		}*/
 	}
 
 	public void StartButton(){									//初めから
