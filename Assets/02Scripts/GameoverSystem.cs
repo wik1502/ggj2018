@@ -48,6 +48,7 @@ public class GameoverSystem : MonoBehaviour {
             {
                 gameoverFlg = false;
                 gameoverPanel.SetActive(true);
+                SoundManager.Instance.PlayBGM(2);   //BGM再生：ゲームオーバー
             }
         }
     }
