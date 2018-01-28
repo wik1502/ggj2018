@@ -19,8 +19,7 @@ public class PlayerCollision : MonoBehaviour {
 
     void OnTriggerEnter(Collider t)
     {
-        SoundManager.Instance.PlaySE(3);    //効果音：衝突
-        t.GetComponent<NpcInputTouch>().deadTrigger = true;     //接触した時点でNPCは死ぬ(無慈悲)
+        t.GetComponent<NpcInputTouch>().deadTrigger = true;     //接触した時点でNPCは生きながら死ぬ(無慈悲)
         triggerEnter = true;
         collider = t;
     }
