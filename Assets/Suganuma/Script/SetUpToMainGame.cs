@@ -23,7 +23,7 @@ public class SetUpToMainGame : MonoBehaviour {
         {
             count -= Time.deltaTime;
             siroImage.color = new Color(siroImage.color.r, siroImage.color.g, siroImage.color.b,alfa);
-            alfa++;
+            alfa+= Time.deltaTime;
         }
         if(count <= 0)
         {
